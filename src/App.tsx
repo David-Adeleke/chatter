@@ -10,6 +10,7 @@ import ProfilePage from '@/pages/ProfilePage';
 import WritePage from '@/pages/WritePage';
 import EditPage from '@/pages/EditPage';
 import SettingsPage from '@/pages/SettingsPage';
+import DashboardPage from '@/pages/DashboardPage';
 import FeedPage from '@/pages/FeedPage';
 import PostPage from '@/pages/PostPage';
 import NotFoundPage from '@/pages/NotFoundPage';
