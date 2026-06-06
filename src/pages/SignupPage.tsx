@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import SEO from '@/components/SEO'
 import { signUpWithEmail, signInWithGoogle, signInWithGitHub } from '@/services/auth.service'
 
 export default function SignupPage() {
@@ -27,6 +28,7 @@ export default function SignupPage() {
 
   return (
     <main>
+      <SEO title="Create account" />
       <h1>Create your account</h1>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>

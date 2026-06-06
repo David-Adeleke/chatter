@@ -29,8 +29,7 @@ export default function LoginPage() {
   return (
     <main>
       <SEO title="Log in" />
-      <SEO title="Create account" />
-      <h1>Create your account</h1>
+      <h1>Log in to your account</h1>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
