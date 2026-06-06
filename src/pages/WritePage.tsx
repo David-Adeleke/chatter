@@ -13,7 +13,8 @@ export function WritePage() {
     const [tags, setTags] = useState<string[]>([])
     const [tagInput, setTagInput] = useState('')
     const [lastSaved, setLastSaved] = useState<Date | null>(null)
-    const { save, saving, postId } = usePost()
+    const { save, saving } = usePost()
+    // const { save, saving, postId } = usePost()
     const autosaveRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
     useEffect(() => {
@@ -39,11 +40,16 @@ export function WritePage() {
 
     const handlePublish = async () => {
         if (!title.trim()) return
-        const { post, error } = await save(
+        // const { post, error } = await save(
+        //     { title, content, excerpt, tags, cover_image_url: '' },
+        //     'published'
+        // )
+        // if (post && !error) navigate(`/posts/${post.slug}`)
+        const result = await save(
             { title, content, excerpt, tags, cover_image_url: '' },
             'published'
         )
-        if (post && !error) navigate(`/posts/${post.slug}`)
+        if ('post' in result && result.post) navigate(`/posts/${result.post.slug}`)
     }
 
     return (

@@ -19,7 +19,7 @@ export function useFeed({ type, tag, searchQuery }: UseFeedOptions) {
     const [hasMore, setHasMore] = useState(true)
     const [loading, setLoading] = useState(false)
     const [initialLoad, setInitialLoad] = useState(true)
-    const abortRef = useRef<AbortController | null>(null)
+    // const abortRef = useRef<AbortController | null>(null)
 
     const fetchPage = useCallback(async (pageNum: number, replace: boolean) => {
         setLoading(true)

@@ -31,11 +31,16 @@ export function EditPage() {
     }, [id])
 
     const handleSave = async (status: 'draft' | 'published') => {
-        const { post: updated, error } = await save(
+        // const { post: updated, error } = await save(
+        //     { title, content, excerpt, tags: [], cover_image_url: post?.cover_image_url ?? '' },
+        //     status
+        // )
+        // if (updated && !error) navigate(`/posts/${updated.slug}`)
+        const result = await save(
             { title, content, excerpt, tags: [], cover_image_url: post?.cover_image_url ?? '' },
             status
         )
-        if (updated && !error) navigate(`/posts/${updated.slug}`)
+        if ('post' in result && result.post) navigate(`/posts/${result.post.slug}`)
     }
 
     if (!post) return <p>Loading...</p>
