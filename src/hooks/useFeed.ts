@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { getLatestFeed, getFollowingFeed, getTrendingFeed, searchPosts } from '@/services/feed.service'
 import { useAuth } from '@/features/auth/AuthContext'
 import type { PostWithAuthor } from '@/types/post'
