@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import { getUserPosts } from '@/services/post.service'
 import { useAnalytics } from '@/hooks/useAnalytics'
+import SEO from '@/components/SEO'
 import MetricCard from '@/components/analytics/MetricCard'
 import ViewsChart from '@/components/analytics/ViewsChart'
 import EngagementChart from '@/components/analytics/EngagementChart'
@@ -16,6 +17,7 @@ function PostAnalyticsPanel({ post }: { post: Post }) {
 
     return (
         <div>
+            <SEO title="Dashboard" />
             <div>
                 {comparisons.map(c => (
                     <MetricCard key={c.metric} data={c} />
