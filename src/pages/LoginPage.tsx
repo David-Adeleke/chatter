@@ -15,7 +15,7 @@ export function LoginPage() {
     setLoading(true)
     setError('')
 
-    const { error } = await signInWithEmail(email, password, username)
+    const { error } = await signInWithEmail(email, password)
     if (error) {
       setError(error.message)
       setLoading(false)

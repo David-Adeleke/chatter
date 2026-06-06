@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/features/auth/AuthContext'
-import { getProfileByUsername, updateProfile } from '@/services/profile.service'
+import { updateProfile } from '@/services/profile.service'
+// import { getProfileByUsername, updateProfile } from '@/services/profile.service'
 import { uploadAvatar } from '@/services/storage.service'
 import { supabase } from '@/lib/supabase'
 

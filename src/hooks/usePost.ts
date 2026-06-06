@@ -27,6 +27,7 @@ export function usePost(existingPostId?: string) {
                 ...draft,
                 slug: generateUniqueSlug(draft.title),
                 status,
+                reading_time_minutes: 0
             })
 
         if (result.post && !postId) setPostId(result.post.id)
