@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { useAuth } from '@/features/auth/AuthContext'
 import { useFeed } from '@/hooks/useFeed'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+import SEO from '@/components/SEO'
 import PostCard from '@/components/PostCard'
 import SearchBar from '@/components/SearchBar'
 import type { FeedType } from '@/types/feed'
@@ -24,6 +25,7 @@ export default function FeedPage() {
 
     return (
         <main>
+            <SEO title="Home" description="Discover stories from writers on Chatter." />
             <SearchBar onSearch={handleSearch} />
 
             {!searchQuery && (
