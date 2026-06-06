@@ -5,7 +5,7 @@ import { usePost } from '@/hooks/usePost'
 
 const AUTOSAVE_INTERVAL = 30_000
 
-export function WritePage() {
+export default function WritePage() {
     const navigate = useNavigate()
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')

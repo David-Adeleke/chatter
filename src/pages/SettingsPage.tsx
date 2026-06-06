@@ -5,7 +5,7 @@ import { updateProfile } from '@/services/profile.service'
 import { uploadAvatar } from '@/services/storage.service'
 import { supabase } from '@/lib/supabase'
 
-export function SettingsPage() {
+export default function SettingsPage() {
   const { user } = useAuth()
   const [fullName, setFullName] = useState('')
   const [bio, setBio] = useState('')

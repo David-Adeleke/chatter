@@ -3,7 +3,7 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { useProfile } from '@/hooks/useProfile'
 import { followUser, unfollowUser } from '@/services/profile.service'
 
-export function ProfilePage() {
+export default function ProfilePage() {
   const { username } = useParams<{ username: string }>()
   const { user } = useAuth()
   const navigate = useNavigate()

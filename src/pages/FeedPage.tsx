@@ -6,7 +6,7 @@ import PostCard from '@/components/PostCard'
 import SearchBar from '@/components/SearchBar'
 import type { FeedType } from '@/types/feed'
 
-export function FeedPage() {
+export default function FeedPage() {
     const { user } = useAuth()
     const [feedType, setFeedType] = useState<FeedType>('latest')
     const [searchQuery, setSearchQuery] = useState('')

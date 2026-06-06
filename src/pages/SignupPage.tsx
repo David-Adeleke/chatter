@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signUpWithEmail, signInWithGoogle, signInWithGitHub } from '@/services/auth.service'
 
-export function SignupPage() {
+export default function SignupPage() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
