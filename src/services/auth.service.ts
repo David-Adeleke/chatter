@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabase'
 
-export async function sugnUpWithEmail(email: string, password: string, username: string) {
+export async function signUpWithEmail(email: string, password: string, username: string) {
     return supabase.auth.signUp({
         email, password, options: {
             data: {username}
