@@ -4,10 +4,13 @@ import { getPostBySlug } from '@/services/post.service'
 import { useComments } from '@/hooks/useComments'
 import { useAuth } from '@/features/auth/AuthContext'
 import { supabase } from '@/lib/supabase'
+import SEO from '@/components/SEO'
 import LikeButton from '@/components/LikeButton'
 import BookmarkButton from '@/components/BookmarkButton'
 import CommentThread from '@/components/CommentThread'
 import type { PostWithAuthor } from '@/types/post'
+
+const DEFAULT_DESCRIPTION = 'Read this post on Chatter'
 
 export default function PostPage() {
     const { slug } = useParams<{ slug: string }>()
@@ -42,6 +45,15 @@ export default function PostPage() {
 
     return (
         <main>
+            <SEO
+                title={post.title}
+                description={post.excerpt ?? DEFAULT_DESCRIPTION}
+                image={post.cover_image_url ?? undefined}
+                url={`/posts/${post.slug}`}
+                type="article"
+                publishedAt={post.published_at ?? undefined}
+                author={post.profiles.full_name ?? post.profiles.username}
+            />
             <article>
                 {post.cover_image_url && (
                     <img src={post.cover_image_url} alt={post.title} />
