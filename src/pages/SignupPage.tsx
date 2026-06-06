@@ -28,20 +28,65 @@ export default function SignupPage() {
 
   return (
     <main>
-      <SEO title="Create account" />
-      <h1>Create your account</h1>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
-        <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" required />
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Creating account...' : 'Sign up'}
-        </button>
-      </form>
-      <button onClick={signInWithGoogle}>Continue with Google</button>
-      <button onClick={signInWithGitHub}>Continue with GitHub</button>
-      <p>Already have an account? <Link to="/login">Log in</Link></p>
+      <SEO
+        title="Create account · Chatter"
+        description="Join Chatter to write, share, and discover ideas. Sign up with email, Google, or GitHub."
+        url="/signup"
+      />
+
+      <section aria-labelledby="signup-heading">
+        <h1 id="signup-heading">Create your account</h1>
+
+        {error && (
+          <p role="alert" aria-live="polite">{error}</p>
+        )}
+
+        <form onSubmit={handleSubmit} noValidate>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Username"
+            autoComplete="username"
+            required
+          />
+
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            autoComplete="email"
+            required
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+            autoComplete="new-password"
+            required
+          />
+
+          <button type="submit" disabled={loading} aria-busy={loading}>
+            {loading ? 'Creating account...' : 'Sign up'}
+          </button>
+        </form>
+
+        <div role="group" aria-label="Social sign up options">
+          <button type="button" onClick={signInWithGoogle}>Continue with Google</button>
+          <button type="button" onClick={signInWithGitHub}>Continue with GitHub</button>
+        </div>
+
+        <p>Already have an account? <Link to="/login">Log in</Link></p>
+      </section>
     </main>
   )
 }

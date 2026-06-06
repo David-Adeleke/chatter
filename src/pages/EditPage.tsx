@@ -46,13 +46,53 @@ export default function EditPage() {
     if (!post) return <p>Loading...</p>
 
     return (
-        <main>
-            <button onClick={() => handleSave('draft')}>Save draft</button>
-            <button onClick={() => handleSave('published')} disabled={saving}>Update</button>
+        <main aria-labelledby="edit-heading">
+            <h1 id="edit-heading" className="sr-only">Edit post</h1>
 
-            <input value={title} onChange={e => setTitle(e.target.value)} />
-            <input value={excerpt} onChange={e => setExcerpt(e.target.value)} />
-            <Editor content={content} onChange={setContent} />
+            <div role="toolbar" aria-label="Post actions">
+                <button
+                    type="button"
+                    onClick={() => handleSave('draft')}
+                    disabled={saving}
+                >
+                    Save draft
+                </button>
+                <button
+                    type="button"
+                    onClick={() => handleSave('published')}
+                    disabled={saving}
+                    aria-busy={saving}
+                >
+                    {saving ? 'Saving...' : 'Update'}
+                </button>
+            </div>
+
+            <form noValidate aria-label="Edit post form">
+                <label htmlFor="edit-title">Title</label>
+                <input
+                    id="edit-title"
+                    type="text"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    placeholder="Post title"
+                    autoComplete="off"
+                    required
+                />
+
+                <label htmlFor="edit-excerpt">Excerpt</label>
+                <input
+                    id="edit-excerpt"
+                    type="text"
+                    value={excerpt}
+                    onChange={e => setExcerpt(e.target.value)}
+                    placeholder="Short description"
+                    autoComplete="off"
+                />
+
+                <div role="region" aria-label="Post content editor">
+                    <Editor content={content} onChange={setContent} />
+                </div>
+            </form>
         </main>
     )
 }

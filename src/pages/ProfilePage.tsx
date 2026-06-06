@@ -27,26 +27,63 @@ export default function ProfilePage() {
   }
 
   return (
-    <main>
+    <main aria-labelledby="profile-heading">
       <SEO
-        title={profile.full_name ?? profile.username}
+        title={`${profile.full_name ?? profile.username} · Chatter`}
         description={profile.bio ?? `Read stories by ${profile.username} on Chatter.`}
         image={profile.avatar_url ?? undefined}
         url={`/@${profile.username}`}
       />
-      <img src={profile.avatar_url ?? '/default-avatar.png'} alt={profile.username} />
-      <h1>{profile.full_name ?? profile.username}</h1>
-      <p>@{profile.username}</p>
-      {profile.bio && <p>{profile.bio}</p>}
-      <p>{followCounts.followers} followers · {followCounts.following} following</p>
 
-      {isOwner ? (
-        <button onClick={() => navigate('/settings')}>Edit profile</button>
-      ) : (
-        <button onClick={handleFollow}>
-          {following ? 'Unfollow' : 'Follow'}
-        </button>
-      )}
+      <header>
+        <img
+          src={profile.avatar_url ?? '/default-avatar.png'}
+          alt={`Avatar of ${profile.full_name ?? profile.username}`}
+        />
+
+        <h1 id="profile-heading">
+          {profile.full_name ?? profile.username}
+        </h1>
+
+        <p aria-label="Username">@{profile.username}</p>
+
+        {profile.bio && (
+          <p aria-label="Bio">{profile.bio}</p>
+        )}
+
+        <dl aria-label="Follow counts">
+          <div>
+            <dt>Followers</dt>
+            <dd>{followCounts.followers}</dd>
+          </div>
+          <div>
+            <dt>Following</dt>
+            <dd>{followCounts.following}</dd>
+          </div>
+        </dl>
+
+        {isOwner ? (
+          <button
+            type="button"
+            onClick={() => navigate('/settings')}
+            aria-label="Edit your profile"
+          >
+            Edit profile
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={handleFollow}
+            aria-pressed={following}
+            aria-label={following
+              ? `Unfollow ${profile.username}`
+              : `Follow ${profile.username}`
+            }
+          >
+            {following ? 'Unfollow' : 'Follow'}
+          </button>
+        )}
+      </header>
     </main>
   )
 }

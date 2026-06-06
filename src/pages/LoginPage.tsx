@@ -27,21 +27,53 @@ export default function LoginPage() {
   }
 
   return (
-    <main>
-      <SEO title="Log in" />
-      <h1>Log in to your account</h1>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
-        <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" required />
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Creating account...' : 'Sign In'}
+    <main aria-labelledby="login-heading">
+      <SEO
+        title="Log in · Chatter"
+        description="Log in to your Chatter account to read, write, and connect."
+        url="/login"
+      />
+
+      <h1 id="login-heading">Log in to your account</h1>
+
+      {error && (
+        <p role="alert" aria-live="polite">{error}</p>
+      )}
+
+      <form onSubmit={handleSubmit} noValidate>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="you@example.com"
+          autoComplete="email"
+          required
+        />
+
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          autoComplete="current-password"
+          required
+        />
+
+        <button type="submit" disabled={loading} aria-busy={loading}>
+          {loading ? 'Logging in...' : 'Log in'}
         </button>
       </form>
-      <button onClick={signInWithGoogle}>Continue with Google</button>
-      <button onClick={signInWithGitHub}>Continue with GitHub</button>
-      <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+
+      <div role="group" aria-label="Social login options">
+        <button type="button" onClick={signInWithGoogle}>Continue with Google</button>
+        <button type="button" onClick={signInWithGitHub}>Continue with GitHub</button>
+      </div>
+
+      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
     </main>
   )
 }

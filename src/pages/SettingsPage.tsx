@@ -54,15 +54,66 @@ export default function SettingsPage() {
   }
 
   return (
-    <main>
-      <h1>Edit Profile</h1>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSave}>
-        <input value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Full name" />
-        <textarea value={bio} onChange={e => setBio(e.target.value)} placeholder="Bio" />
-        <input value={website} onChange={e => setWebsite(e.target.value)} placeholder="Website" />
-        <input type="file" accept="image/*" onChange={e => setAvatarFile(e.target.files?.[0] ?? null)} />
-        <button type="submit" disabled={saving}>{saving ? 'Saving...' : 'Save changes'}</button>
+    <main aria-labelledby="settings-heading">
+      <SEO
+        title="Edit Profile · Chatter"
+        description="Update your Chatter profile information."
+        url="/settings"
+      />
+
+      <h1 id="settings-heading">Edit Profile</h1>
+
+      {message && (
+        <p role="status" aria-live="polite">{message}</p>
+      )}
+
+      <form onSubmit={handleSave} noValidate aria-label="Edit profile form">
+
+        <label htmlFor="full-name">Full name</label>
+        <input
+          id="full-name"
+          type="text"
+          value={fullName}
+          onChange={e => setFullName(e.target.value)}
+          placeholder="Full name"
+          autoComplete="name"
+        />
+
+        <label htmlFor="bio">Bio</label>
+        <textarea
+          id="bio"
+          value={bio}
+          onChange={e => setBio(e.target.value)}
+          placeholder="Tell readers about yourself"
+        />
+
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          type="url"
+          value={website}
+          onChange={e => setWebsite(e.target.value)}
+          placeholder="https://yourwebsite.com"
+          autoComplete="url"
+        />
+
+        <label htmlFor="avatar">Profile photo</label>
+        <input
+          id="avatar"
+          type="file"
+          accept="image/*"
+          aria-describedby="avatar-hint"
+          onChange={e => setAvatarFile(e.target.files?.[0] ?? null)}
+        />
+        <small id="avatar-hint">Accepted formats: JPG, PNG, GIF. Max 2MB.</small>
+
+        <button
+          type="submit"
+          disabled={saving}
+          aria-busy={saving}
+        >
+          {saving ? 'Saving...' : 'Save changes'}
+        </button>
       </form>
     </main>
   )

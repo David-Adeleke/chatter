@@ -24,24 +24,50 @@ export default function FeedPage() {
     const sentinelRef = useInfiniteScroll(loadMore, hasMore && !loading)
 
     return (
-        <main>
-            <SEO title="Home" description="Discover stories from writers on Chatter." />
+        <main aria-labelledby="feed-heading">
+            <SEO title="Home · Chatter" description="Discover stories from writers on Chatter." url="/" />
+
+            <h1 id="feed-heading" className="sr-only">Feed</h1>
+
             <SearchBar onSearch={handleSearch} />
 
             {!searchQuery && (
-                <nav>
-                    <button onClick={() => setFeedType('latest')}>Latest</button>
-                    <button onClick={() => setFeedType('trending')}>Trending</button>
+                <nav aria-label="Feed filter">
+                    <button
+                        type="button"
+                        onClick={() => setFeedType('latest')}
+                        aria-pressed={feedType === 'latest'}
+                        aria-current={feedType === 'latest' ? 'true' : undefined}
+                    >
+                        Latest
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setFeedType('trending')}
+                        aria-pressed={feedType === 'trending'}
+                        aria-current={feedType === 'trending' ? 'true' : undefined}
+                    >
+                        Trending
+                    </button>
                     {user && (
-                        <button onClick={() => setFeedType('following')}>Following</button>
+                        <button
+                            type="button"
+                            onClick={() => setFeedType('following')}
+                            aria-pressed={feedType === 'following'}
+                            aria-current={feedType === 'following' ? 'true' : undefined}
+                        >
+                            Following
+                        </button>
                     )}
                 </nav>
             )}
 
-            {initialLoad && <p>Loading...</p>}
+            {initialLoad && (
+                <p role="status" aria-live="polite" aria-busy="true">Loading...</p>
+            )}
 
             {!initialLoad && posts.length === 0 && (
-                <p>
+                <p role="status" aria-live="polite">
                     {searchQuery
                         ? `No results for "${searchQuery}"`
                         : feedType === 'following'
@@ -50,15 +76,23 @@ export default function FeedPage() {
                 </p>
             )}
 
-            <div>
+            <ul role="list" aria-label="Posts" aria-live="polite">
                 {posts.map(post => (
-                    <PostCard key={post.id} post={post} />
+                    <li key={post.id}>
+                        <PostCard post={post} />
+                    </li>
                 ))}
-            </div>
+            </ul>
 
-            <div ref={sentinelRef} style={{ height: 1 }} />
+            <div
+                ref={sentinelRef}
+                style={{ height: 1 }}
+                aria-hidden="true"
+            />
 
-            {loading && !initialLoad && <p>Loading more...</p>}
+            {loading && !initialLoad && (
+                <p role="status" aria-live="polite" aria-busy="true">Loading more...</p>
+            )}
         </main>
     )
 }

@@ -44,9 +44,9 @@ export default function PostPage() {
     if (!post) return null
 
     return (
-        <main>
+        <main aria-labelledby="post-heading">
             <SEO
-                title={post.title}
+                title={`${post.title} · Chatter`}
                 description={post.excerpt ?? DEFAULT_DESCRIPTION}
                 image={post.cover_image_url ?? undefined}
                 url={`/posts/${post.slug}`}
@@ -54,27 +54,44 @@ export default function PostPage() {
                 publishedAt={post.published_at ?? undefined}
                 author={post.profiles.full_name ?? post.profiles.username}
             />
-            <article>
+
+            <article aria-labelledby="post-heading">
                 {post.cover_image_url && (
-                    <img src={post.cover_image_url} alt={post.title} />
+                    <img
+                        src={post.cover_image_url}
+                        alt={`Cover image for ${post.title}`}
+                    />
                 )}
 
                 <header>
-                    <h1>{post.title}</h1>
+                    <h1 id="post-heading">{post.title}</h1>
 
                     <div>
-                        <Link to={`/@${post.profiles.username}`}>
-                            <img src={post.profiles.avatar_url ?? '/default-avatar.png'} alt={post.profiles.username} />
+                        <Link
+                            to={`/@${post.profiles.username}`}
+                            aria-label={`View profile of ${post.profiles.full_name ?? post.profiles.username}`}
+                        >
+                            <img
+                                src={post.profiles.avatar_url ?? '/default-avatar.png'}
+                                alt={`Avatar of ${post.profiles.full_name ?? post.profiles.username}`}
+                            />
                             <span>{post.profiles.full_name ?? post.profiles.username}</span>
                         </Link>
-                        <span>{post.reading_time_minutes} min read</span>
-                        <span>{new Date(post.published_at!).toLocaleDateString()}</span>
+                        <span aria-label={`${post.reading_time_minutes} minute read`}>
+                            {post.reading_time_minutes} min read
+                        </span>
+                        <time dateTime={post.published_at!}>
+                            {new Date(post.published_at!).toLocaleDateString()}
+                        </time>
                     </div>
                 </header>
 
-                <div dangerouslySetInnerHTML={{ __html: post.content ?? '' }} />
+                <div
+                    dangerouslySetInnerHTML={{ __html: post.content ?? '' }}
+                    aria-label="Post content"
+                />
 
-                <footer>
+                <footer aria-label="Post actions">
                     <LikeButton postId={post.id} />
                     <BookmarkButton postId={post.id} />
                     {user?.id === post.author_id && (
@@ -83,31 +100,45 @@ export default function PostPage() {
                 </footer>
             </article>
 
-            <section>
-                <h2>Comments</h2>
+            <section aria-labelledby="comments-heading">
+                <h2 id="comments-heading">Comments</h2>
 
                 {user ? (
-                    <div>
+                    <form
+                        onSubmit={e => { e.preventDefault(); handleComment() }}
+                        aria-label="Add a comment"
+                    >
+                        <label htmlFor="new-comment" className="sr-only">Your comment</label>
                         <textarea
+                            id="new-comment"
                             value={newComment}
                             onChange={e => setNewComment(e.target.value)}
                             placeholder="Share your thoughts..."
+                            aria-required="true"
                         />
-                        <button onClick={handleComment}>Post comment</button>
-                    </div>
+                        <button
+                            type="submit"
+                            disabled={!newComment.trim()}
+                        >
+                            Post comment
+                        </button>
+                    </form>
                 ) : (
                     <p><Link to="/login">Log in</Link> to comment.</p>
                 )}
 
-                {threads.map(thread => (
-                    <CommentThread
-                        key={thread.id}
-                        thread={thread}
-                        onReply={submit}
-                        onDelete={remove}
-                        onEdit={edit}
-                    />
-                ))}
+                <ul role="list" aria-label="Comments" aria-live="polite">
+                    {threads.map(thread => (
+                        <li key={thread.id}>
+                            <CommentThread
+                                thread={thread}
+                                onReply={submit}
+                                onDelete={remove}
+                                onEdit={edit}
+                            />
+                        </li>
+                    ))}
+                </ul>
             </section>
         </main>
     )

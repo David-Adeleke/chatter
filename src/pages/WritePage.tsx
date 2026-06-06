@@ -53,48 +53,103 @@ export default function WritePage() {
     }
 
     return (
-        <main>
-            <div>
-                <button onClick={() => save({ title, content, excerpt, tags, cover_image_url: '' }, 'draft')}>
+        <main aria-labelledby="write-heading">
+            <SEO
+                title="Write a post · Chatter"
+                description="Write and publish your story on Chatter."
+                url="/write"
+            />
+
+            <h1 id="write-heading" className="sr-only">Write a post</h1>
+
+            <div role="toolbar" aria-label="Post actions">
+                <button
+                    type="button"
+                    onClick={() => save({ title, content, excerpt, tags, cover_image_url: '' }, 'draft')}
+                    disabled={saving || !title.trim()}
+                    aria-busy={saving}
+                >
                     Save draft
                 </button>
-                <button onClick={handlePublish} disabled={saving || !title.trim()}>
-                    Publish
+                <button
+                    type="button"
+                    onClick={handlePublish}
+                    disabled={saving || !title.trim()}
+                    aria-busy={saving}
+                >
+                    {saving ? 'Publishing...' : 'Publish'}
                 </button>
-                {lastSaved && <span>Saved {lastSaved.toLocaleTimeString()}</span>}
+                {lastSaved && (
+                    <span aria-live="polite" aria-atomic="true">
+                        Saved at {lastSaved.toLocaleTimeString()}
+                    </span>
+                )}
             </div>
 
-            <input
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                placeholder="Post title"
-            />
-
-            <input
-                value={excerpt}
-                onChange={e => setExcerpt(e.target.value)}
-                placeholder="Short description (shows in feed)"
-            />
-
-            <Editor content={content} onChange={setContent} />
-
-            <div>
+            <form noValidate aria-label="Write post form">
+                <label htmlFor="post-title">Title</label>
                 <input
-                    value={tagInput}
-                    onChange={e => setTagInput(e.target.value)}
-                    onKeyDown={handleAddTag}
-                    placeholder="Add tags (press Enter, max 5)"
-                    disabled={tags.length >= 5}
+                    id="post-title"
+                    type="text"
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                    placeholder="Post title"
+                    autoComplete="off"
+                    required
+                    aria-required="true"
                 />
-                <div>
-                    {tags.map(tag => (
-                        <span key={tag}>
-                            {tag}
-                            <button onClick={() => setTags(prev => prev.filter(t => t !== tag))}>×</button>
-                        </span>
-                    ))}
+
+                <label htmlFor="post-excerpt">Excerpt</label>
+                <input
+                    id="post-excerpt"
+                    type="text"
+                    value={excerpt}
+                    onChange={e => setExcerpt(e.target.value)}
+                    placeholder="Short description (shows in feed)"
+                    autoComplete="off"
+                />
+
+                <div role="region" aria-label="Post content editor">
+                    <Editor content={content} onChange={setContent} />
                 </div>
-            </div>
+
+                <fieldset>
+                    <legend>Tags</legend>
+                    <label htmlFor="tag-input" className="sr-only">
+                        Add a tag
+                    </label>
+                    <input
+                        id="tag-input"
+                        type="text"
+                        value={tagInput}
+                        onChange={e => setTagInput(e.target.value)}
+                        onKeyDown={handleAddTag}
+                        placeholder="Add tags (press Enter, max 5)"
+                        disabled={tags.length >= 5}
+                        aria-describedby="tag-hint"
+                    />
+                    <small id="tag-hint">
+                        {tags.length >= 5
+                            ? 'Maximum of 5 tags reached'
+                            : `${5 - tags.length} tag${5 - tags.length === 1 ? '' : 's'} remaining`}
+                    </small>
+
+                    <ul role="list" aria-label="Added tags">
+                        {tags.map(tag => (
+                            <li key={tag}>
+                                <span>{tag}</span>
+                                <button
+                                    type="button"
+                                    onClick={() => setTags(prev => prev.filter(t => t !== tag))}
+                                    aria-label={`Remove tag: ${tag}`}
+                                >
+                                    ×
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </fieldset>
+            </form>
         </main>
     )
 }
