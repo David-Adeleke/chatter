@@ -5,7 +5,7 @@ import Editor from '@/components/Editor'
 import { usePost } from '@/hooks/usePost'
 import type { Post } from '@/types/post'
 
-export default function EditPage() {
+export function EditPage() {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
     const [post, setPost] = useState<Post | null>(null)

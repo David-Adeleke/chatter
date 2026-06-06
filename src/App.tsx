@@ -6,6 +6,8 @@ import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
 import { SignupPage } from '@/pages/SignupPage';
 import { ProfilePage } from '@/pages/ProfilePage';
+import { WritePage } from '@/pages/WritePage';
+import { EditPage } from '@/pages/EditPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
@@ -34,6 +36,20 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route 
+              path="/write" 
+              element={
+                <ProtectedRoute>
+                  <WritePage />
+                </ProtectedRoute>
+              } />
+            <Route 
+              path="/edit/:id" 
+              element={
+                <ProtectedRoute>
+                  <EditPage />
+                </ProtectedRoute>
+              } />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
