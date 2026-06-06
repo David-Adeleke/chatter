@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getPostBySlug } from '@/services/post.service'
 import { useComments } from '@/hooks/useComments'
 import { useAuth } from '@/features/auth/AuthContext'
+import { supabase } from '@/lib/supabase'
 import LikeButton from '@/components/LikeButton'
 import BookmarkButton from '@/components/BookmarkButton'
 import CommentThread from '@/components/CommentThread'
@@ -24,8 +25,11 @@ export default function PostPage() {
             if (!data) { navigate('/404'); return }
             setPost(data as PostWithAuthor)
             setLoading(false)
+            supabase.functions.invoke('track-view', {
+                body: { post_id: data.id, viewer_id: user?.id ?? null },
+            })
         })
-    }, [slug, navigate])
+    }, [slug, navigate, user])
 
     const handleComment = async () => {
         if (!newComment.trim()) return
