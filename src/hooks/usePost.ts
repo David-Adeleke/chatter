@@ -4,6 +4,8 @@ import { generateUniqueSlug } from '@/lib/slug'
 import { useAuth } from '@/features/auth/AuthContext'
 import type { PostStatus } from '@/types/post'
 
+const WORDS_PER_MINUTE = 200
+
 interface PostDraft {
     title: string
     content: string
@@ -21,13 +23,16 @@ export function usePost(existingPostId?: string) {
         if (!user) return { error: 'Not authenticated' }
         setSaving(true)
 
+        const wordCount = draft.content.replace(/<[^>]*>/g, '').split(/\s+/).length
+        const reading_time_minutes = Math.ceil(wordCount / WORDS_PER_MINUTE)
+
         const result = postId
             ? await updatePost(postId, { ...draft, status })
             : await createPost(user.id, {
                 ...draft,
                 slug: generateUniqueSlug(draft.title),
                 status,
-                reading_time_minutes: 0
+                reading_time_minutes
             })
 
         if (result.post && !postId) setPostId(result.post.id)
