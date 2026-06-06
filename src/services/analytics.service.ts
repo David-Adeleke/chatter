@@ -88,9 +88,9 @@ export async function getPostAnalytics(postId: string): Promise<PostAnalytics | 
 }
 
 export function computeComparisons(analytics: PostAnalytics): PeriodComparison[] {
-    const metrics: Array<{ key: keyof Pick<PostAnalytics, 'last_7_days' | 'prev_7_days'>; label: string }> = [
-        { key: 'last_7_days', label: 'Views' },
-    ]
+    // const _metrics: Array<{ key: keyof Pick<PostAnalytics, 'last_7_days' | 'prev_7_days'>; label: string }> = [
+    //     { key: 'last_7_days', label: 'Views' },
+    // ]
 
     const sum = (days: DailyMetric[], field: keyof DailyMetric) =>
         days.reduce((acc, d) => acc + (d[field] as number), 0)
