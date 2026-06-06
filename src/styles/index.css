@@ -1,1 +1,343 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "./components.css";
+@import "./layout.css";
+@import "./auth.css";
+@import "./feed.css";
+@import "./post.css";
+@import "./editor.css";
+@import "./profile.css";
+@import "./notifications.css";
+@import "./dashboard.css";
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+@theme {
+  /* Fonts */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body:    "Source Serif 4", Georgia, serif;
+  --font-ui:      "Inter", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", "Fira Code", monospace;
+
+  /* Type scale */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+
+  /* Ink (text) */
+  --color-ink:          #111111;
+  --color-ink-muted:    #555555;
+  --color-ink-faint:    #767676;
+  --color-ink-inverse:  #faf9f6;
+
+  /* Canvas (backgrounds) */
+  --color-canvas:        #faf9f6;
+  --color-canvas-raised: #ffffff;
+  --color-canvas-sunken: #f0ede6;
+  --color-canvas-hover:  #ede9e0;
+
+  /* Accent (amber/gold) */
+  --color-accent:       #c9993a;
+  --color-accent-light: #f5c842;
+  --color-accent-dim:   #7a5c1e;
+  --color-accent-bg:    #fdf6e3;
+
+  /* Semantic */
+  --color-danger:       #c0392b;
+  --color-danger-bg:    #fdf0ee;
+  --color-success:      #1e7e45;
+  --color-success-bg:   #edfbf2;
+  --color-warning:      #b45309;
+  --color-warning-bg:   #fffbeb;
+
+  /* Borders */
+  --color-border:        #e2ddd4;
+  --color-border-strong: #c5bfb5;
+  --color-border-focus:  #c9993a;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Radii */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.16);
+
+  /* Transitions */
+  --transition-fast:   100ms ease;
+  --transition-base:   200ms ease;
+  --transition-slow:   300ms ease;
+
+  /* Z-index */
+  --z-base:    1;
+  --z-raised:  10;
+  --z-overlay: 100;
+  --z-modal:   1000;
+  --z-toast:   9999;
+
+  /* Layout */
+  --nav-height:      64px;
+  --content-width:   680px;
+  --wide-width:      1100px;
+  --sidebar-width:   260px;
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    hanging-punctuation: first last;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Typography hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+  h3 { font-size: var(--text-2xl); }
+  h4 { font-size: var(--text-xl);  }
+  h5 { font-size: var(--text-lg);  }
+  h6 { font-size: var(--text-base);}
+
+  p {
+    line-height: 1.8;
+    color: var(--color-ink);
+  }
+
+  p + p {
+    margin-top: var(--space-4);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  a:hover {
+    color: var(--color-accent);
+  }
+
+  img, video, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  ul, ol {
+    list-style: none;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  input, textarea, select {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-ink);
+    background: var(--color-canvas-raised);
+    border: 1px solid var(--color-border);
+    outline: none;
+    width: 100%;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-ink-faint);
+  }
+
+  textarea {
+    resize: vertical;
+    line-height: 1.7;
+  }
+
+  code, kbd, pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-8) 0;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-light);
+    color: var(--color-ink);
+  }
+
+  /* Focus — keyboard only */
+  :focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-canvas-sunken);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: var(--radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ink-faint);
+  }
+}
+
+/* ============================================================
+   GLOBAL TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+@layer base {
+  .font-display { font-family: var(--font-display); }
+  .font-body    { font-family: var(--font-body); }
+  .font-ui      { font-family: var(--font-ui); }
+  .font-mono    { font-family: var(--font-mono); }
+
+  .text-ink        { color: var(--color-ink); }
+  .text-ink-muted  { color: var(--color-ink-muted); }
+  .text-ink-faint  { color: var(--color-ink-faint); }
+  .text-accent     { color: var(--color-accent); }
+  .text-danger     { color: var(--color-danger); }
+  .text-success    { color: var(--color-success); }
+
+  /* Labels — used for tags, status pills, timestamps */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  /* Reading-optimized body text */
+  .prose-text {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    line-height: 1.85;
+    color: var(--color-ink);
+    max-width: var(--content-width);
+  }
+
+  /* Page title style */
+  .page-title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--color-ink);
+  }
+
+  /* Section heading */
+  .section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+}
+
+/* ============================================================
+   GLOBAL LOADING STATE
+   ============================================================ */
+
+@layer base {
+  .loading-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-ink-faint);
+    letter-spacing: 0.05em;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in   { animation: fadeIn 0.3s ease forwards; }
+  .animate-slide-down { animation: slideDown 0.2s ease forwards; }
+}

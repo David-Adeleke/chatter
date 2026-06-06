@@ -4,7 +4,7 @@ import NotificationItem from './NotificationItem'
 
 export default function NotificationBell() {
     const [open, setOpen] = useState(false)
-    const { notifications, unreadCount, loading, readOne, readAll } = useNotifications()
+    const { notifications = [], unreadCount, loading, readOne, readAll } = useNotifications()
     const ref = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -16,6 +16,14 @@ export default function NotificationBell() {
         document.addEventListener('mousedown', handleClickOutside)
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
+
+    useEffect(() => {
+        function handleKeyDown(e: KeyboardEvent) {
+          if (e.key === 'Escape') setOpen(false)
+        }
+        document.addEventListener('keydown', handleKeyDown)
+        return () => document.removeEventListener('keydown', handleKeyDown)
+      }, [])
 
     return (
         <div ref={ref} style={{ position: 'relative' }}>
