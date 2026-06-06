@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import { useProfile } from '@/hooks/useProfile'
+import SEO from '@/components/SEO'
 import { followUser, unfollowUser } from '@/services/profile.service'
 
 export default function ProfilePage() {
@@ -27,6 +28,12 @@ export default function ProfilePage() {
 
   return (
     <main>
+      <SEO
+        title={profile.full_name ?? profile.username}
+        description={profile.bio ?? `Read stories by ${profile.username} on Chatter.`}
+        image={profile.avatar_url ?? undefined}
+        url={`/@${profile.username}`}
+      />
       <img src={profile.avatar_url ?? '/default-avatar.png'} alt={profile.username} />
       <h1>{profile.full_name ?? profile.username}</h1>
       <p>@{profile.username}</p>
