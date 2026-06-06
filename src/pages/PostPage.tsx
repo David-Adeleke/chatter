@@ -8,7 +8,7 @@ import BookmarkButton from '@/components/BookmarkButton'
 import CommentThread from '@/components/CommentThread'
 import type { PostWithAuthor } from '@/types/post'
 
-export default function PostPage() {
+export function PostPage() {
     const { slug } = useParams<{ slug: string }>()
     const { user } = useAuth()
     const navigate = useNavigate()

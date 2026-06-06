@@ -10,6 +10,7 @@ import { WritePage } from '@/pages/WritePage';
 import { EditPage } from '@/pages/EditPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { FeedPage } from '@/pages/FeedPage';
+import { PostPage } from '@/pages/PostPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <Route path="/" element={<FeedPage />} />
             <Route path="/search" element={<FeedPage />} />
             <Route path="/tag/:tag" element={<FeedPage />} />
+            <Route path="/posts/:slug" element={<PostPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
