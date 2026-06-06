@@ -5,6 +5,8 @@ import { AuthProvider } from '@/features/auth/AuthContext';
 import { HomePage } from '@/pages/HomePage';
 import { LoginPage } from '@/pages/LoginPage';
 import { SignupPage } from '@/pages/SignupPage';
+import { ProfilePage } from '@/pages/ProfilePage';
+import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
 function App() {
@@ -13,17 +15,26 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route 
-              path="/" 
-              element= {
+            <Route
+              path="/"
+              element={
                 <ProtectedRoute>
                   <HomePage />
                 </ProtectedRoute>
               }
             />
-            <Route path="/login" element= {<LoginPage />}/>
-            <Route path="/signup" element= {<SignupPage />}/>
-            <Route path="*" element= {<NotFoundPage />}/>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/@:username" element={<ProfilePage />} />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <SettingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
