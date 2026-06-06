@@ -29,6 +29,7 @@ function App() {
               <Route path="/tag/:tag" element={<FeedPage />} />
               <Route path="/posts/:slug" element={<PostPage />} />
               <Route path="/@:username" element={<ProfilePage />} />
+              <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
               <Route
                 path="/write"
                 element={
