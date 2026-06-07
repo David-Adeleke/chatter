@@ -22,6 +22,8 @@ export function useComments(postId: string) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        if (!postId) return
+
         getComments(postId).then(({ comments }) => {
             setThreads(buildThreads(comments))
             setLoading(false)
