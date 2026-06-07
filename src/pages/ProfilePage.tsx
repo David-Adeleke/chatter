@@ -26,6 +26,9 @@ export default function ProfilePage() {
     }
   }
 
+  const { username } = useParams<{ username: string }>()
+  console.log('username from params:', username)
+
   return (
     <main aria-labelledby="profile-heading">
       <SEO
