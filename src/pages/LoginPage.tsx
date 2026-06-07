@@ -21,7 +21,7 @@ export default function LoginPage() {
       setLoading(false)
       return
     }
-    navigate('/feeds')
+    navigate('/feed')
   }
 
   return (

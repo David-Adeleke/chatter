@@ -25,7 +25,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route element={<Layout />}>
               <Route path="/" element={<HomePage />} />
-              <Route path="/feeds" element={<FeedPage />} />
+              <Route path="/feed" element={<FeedPage />} />
               <Route path="/search" element={<FeedPage />} />
               <Route path="/tag/:tag" element={<FeedPage />} />
               <Route path="/posts/:slug" element={<PostPage />} />
