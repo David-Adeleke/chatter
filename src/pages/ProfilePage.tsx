@@ -8,6 +8,8 @@ export default function ProfilePage() {
   const { username } = useParams<{ username: string }>()
   const { user } = useAuth()
   const navigate = useNavigate()
+  console.log('username from params:', username)
+
   const { profile, followCounts, following, setFollowing, loading } = useProfile(username!)
 
   if (loading) return <p>Loading...</p>
@@ -25,8 +27,6 @@ export default function ProfilePage() {
       setFollowing(true)
     }
   }
-
-  console.log('username from params:', username)
 
   return (
     <main aria-labelledby="profile-heading">
