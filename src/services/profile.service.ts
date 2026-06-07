@@ -33,13 +33,13 @@ export async function getFollowCounts(profileId: string) {
 }
   
 export async function isFollowing(followerId: string, followingId: string) {
-    const { data } = await supabase
+  const { data } = await supabase
       .from('follows')
       .select('follower_id')
       .eq('follower_id', followerId)
       .eq('following_id', followingId)
-      .single()
-    return !!data
+      .maybeSingle()
+  return !!data
 }
 
 export async function followUser(followerId: string, followingId: string) {
