@@ -1,15 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
+// import { useProfile } from '@/hooks/useProfile'
 import NotificationBell from './NotificationBell'
 
 export default function Navbar() {
-    const { user, signOut } = useAuth()
+    // const { user, signOut } = useAuth()
+    const { user, profile, signOut } = useAuth()
     const navigate = useNavigate()
 
     const handleSignOut = async () => {
         await signOut()
         navigate('/')
     }
+
+    // const { profile } = useProfile(user?.user_metadata.username ?? user?.email)
 
     return (
         <nav>
@@ -20,14 +24,14 @@ export default function Navbar() {
                     <>
                         <Link to="/write">Write</Link>
                         <NotificationBell />
-                        <Link to={`/@${user.user_metadata.username}`}>Profile</Link>
+                        {/* <Link to={`/@${user.user_metadata.username}`}>Profile</Link> */}
+                        <Link to={`/@${profile?.username}`}>Profile</Link>
                         <button onClick={handleSignOut}>Sign out</button>
                     </>
                 ) : (
                     <>
                         <Link to="/login">Log in</Link>
                         <Link to="/signup">Sign up</Link>
-                        <Link to="/dashboard">Dashboard</Link>
                     </>
                 )}
             </div>
