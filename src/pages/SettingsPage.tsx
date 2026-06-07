@@ -3,6 +3,7 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { updateProfile } from '@/services/profile.service'
 // import { getProfileByUsername, updateProfile } from '@/services/profile.service'
 import { uploadAvatar } from '@/services/storage.service'
+import SEO from '@/components/SEO'
 import { supabase } from '@/lib/supabase'
 
 export default function SettingsPage() {

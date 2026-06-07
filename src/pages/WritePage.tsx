@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Editor from '@/components/Editor'
+import SEO from '@/components/SEO'
 import { usePost } from '@/hooks/usePost'
 
 const AUTOSAVE_INTERVAL = 30_000
