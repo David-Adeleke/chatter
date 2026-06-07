@@ -1,104 +1,157 @@
 import { useState } from 'react'
-import type { CommentThread } from '@/hooks/useComments'
-import { useAuth } from '@/features/auth/AuthContext'
 import { Link } from 'react-router-dom'
+import { useAuth } from '@/features/auth/AuthContext'
+import type { CommentThread } from '@/hooks/useComments'
 
 interface CommentThreadProps {
-    thread: CommentThread
-    onReply: (content: string, parentId: string) => void
-    onDelete: (commentId: string) => void
-    onEdit: (commentId: string, content: string) => void
+  thread: CommentThread
+  onReply: (content: string, parentId: string) => void
+  onDelete: (commentId: string) => void
+  onEdit: (commentId: string, content: string) => void
 }
 
 export default function CommentThreadComponent({
-    thread,
-    onReply,
-    onDelete,
-    onEdit,
+  thread,
+  onReply,
+  onDelete,
+  onEdit,
 }: CommentThreadProps) {
-    const { user } = useAuth()
-    const [replyOpen, setReplyOpen] = useState(false)
-    const [replyContent, setReplyContent] = useState('')
-    const [editing, setEditing] = useState(false)
-    const [editContent, setEditContent] = useState(thread.content)
+  const { user } = useAuth()
+  const [replyOpen, setReplyOpen] = useState(false)
+  const [replyContent, setReplyContent] = useState('')
+  const [editing, setEditing] = useState(false)
+  const [editContent, setEditContent] = useState(thread.content)
+  const isOwner = user?.id === thread.author_id
 
-    const handleReply = () => {
-        if (!replyContent.trim()) return
-        onReply(replyContent.trim(), thread.id)
-        setReplyContent('')
-        setReplyOpen(false)
-    }
+  const handleReply = () => {
+    if (!replyContent.trim()) return
+    onReply(replyContent.trim(), thread.id)
+    setReplyContent('')
+    setReplyOpen(false)
+  }
 
-    const handleEdit = () => {
-        if (!editContent.trim()) return
-        onEdit(thread.id, editContent.trim())
-        setEditing(false)
-    }
+  const handleEdit = () => {
+    if (!editContent.trim()) return
+    onEdit(thread.id, editContent.trim())
+    setEditing(false)
+  }
 
-    const isOwner = user?.id === thread.author_id
+  return (
+    <div className="comment">
+      <div className="comment-header">
+        <Link to={`/@${thread.profiles.username}`} className="comment-author">
+          <img
+            src={thread.profiles.avatar_url ?? '/default-avatar.png'}
+            alt={thread.profiles.username}
+            className="comment-avatar"
+          />
+          <div>
+            <span className="comment-author-name">
+              {thread.profiles.full_name ?? thread.profiles.username}
+            </span>
+            <time className="comment-date">
+              {new Date(thread.created_at).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+              })}
+            </time>
+          </div>
+        </Link>
+      </div>
 
-    return (
-        <div>
-            <div>
-                <Link to={`/@${thread.profiles.username}`}>
-                    <img src={thread.profiles.avatar_url ?? '/default-avatar.png'} alt={thread.profiles.username} />
-                    <span>{thread.profiles.full_name ?? thread.profiles.username}</span>
-                </Link>
-                <span>{new Date(thread.created_at).toLocaleDateString()}</span>
-            </div>
-
-            {editing ? (
-                <div>
-                    <textarea value={editContent} onChange={e => setEditContent(e.target.value)} />
-                    <button onClick={handleEdit}>Save</button>
-                    <button onClick={() => setEditing(false)}>Cancel</button>
-                </div>
-            ) : (
-                <p>{thread.content}</p>
-            )}
-
-            <div>
-                {user && !replyOpen && thread.replies.length < 999 && (
-                    <button onClick={() => setReplyOpen(true)}>Reply</button>
-                )}
-                {isOwner && (
-                    <>
-                        <button onClick={() => setEditing(true)}>Edit</button>
-                        <button onClick={() => onDelete(thread.id)}>Delete</button>
-                    </>
-                )}
-            </div>
-
-            {replyOpen && (
-                <div>
-                    <textarea
-                        value={replyContent}
-                        onChange={e => setReplyContent(e.target.value)}
-                        placeholder="Write a reply..."
-                    />
-                    <button onClick={handleReply}>Post reply</button>
-                    <button onClick={() => setReplyOpen(false)}>Cancel</button>
-                </div>
-            )}
-
-            {thread.replies.length > 0 && (
-                <div style={{ marginLeft: '1.5rem' }}>
-                    {thread.replies.map(reply => (
-                        <div key={reply.id}>
-                            <div>
-                                <Link to={`/@${reply.profiles.username}`}>
-                                    <img src={reply.profiles.avatar_url ?? '/default-avatar.png'} alt={reply.profiles.username} />
-                                    <span>{reply.profiles.full_name ?? reply.profiles.username}</span>
-                                </Link>
-                            </div>
-                            <p>{reply.content}</p>
-                            {user?.id === reply.author_id && (
-                                <button onClick={() => onDelete(reply.id)}>Delete</button>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            )}
+      {editing ? (
+        <div className="comment-edit">
+          <textarea
+            className="comment-textarea"
+            value={editContent}
+            onChange={e => setEditContent(e.target.value)}
+            rows={3}
+          />
+          <div className="comment-edit-actions">
+            <button className="comment-btn-submit" onClick={handleEdit}>Save</button>
+            <button className="comment-btn-text" onClick={() => setEditing(false)}>Cancel</button>
+          </div>
         </div>
-    )
+      ) : (
+        <p className="comment-body">{thread.content}</p>
+      )}
+
+      <div className="comment-actions">
+        {user && (
+          <button
+            className="comment-btn-text"
+            onClick={() => setReplyOpen(r => !r)}
+          >
+            Reply
+          </button>
+        )}
+        {isOwner && !editing && (
+          <>
+            <button className="comment-btn-text" onClick={() => setEditing(true)}>Edit</button>
+            <button className="comment-btn-text comment-btn-danger" onClick={() => onDelete(thread.id)}>Delete</button>
+          </>
+        )}
+      </div>
+
+      {replyOpen && (
+        <div className="comment-reply-compose">
+          <textarea
+            className="comment-textarea"
+            value={replyContent}
+            onChange={e => setReplyContent(e.target.value)}
+            placeholder="Write a reply..."
+            rows={3}
+          />
+          <div className="comment-edit-actions">
+            <button
+              className="comment-btn-submit"
+              onClick={handleReply}
+              disabled={!replyContent.trim()}
+            >
+              Reply
+            </button>
+            <button className="comment-btn-text" onClick={() => setReplyOpen(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {thread.replies.length > 0 && (
+        <div className="comment-replies">
+          {thread.replies.map(reply => (
+            <div key={reply.id} className="comment comment--reply">
+              <div className="comment-header">
+                <Link to={`/@${reply.profiles.username}`} className="comment-author">
+                  <img
+                    src={reply.profiles.avatar_url ?? '/default-avatar.png'}
+                    alt={reply.profiles.username}
+                    className="comment-avatar"
+                  />
+                  <div>
+                    <span className="comment-author-name">
+                      {reply.profiles.full_name ?? reply.profiles.username}
+                    </span>
+                    <time className="comment-date">
+                      {new Date(reply.created_at).toLocaleDateString('en-US', {
+                        month: 'short', day: 'numeric', year: 'numeric'
+                      })}
+                    </time>
+                  </div>
+                </Link>
+              </div>
+              <p className="comment-body">{reply.content}</p>
+              {user?.id === reply.author_id && (
+                <div className="comment-actions">
+                  <button
+                    className="comment-btn-text comment-btn-danger"
+                    onClick={() => onDelete(reply.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
