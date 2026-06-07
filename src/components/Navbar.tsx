@@ -12,7 +12,7 @@ export default function Navbar() {
         await signOut()
         navigate('/')
     }
-    console.log('profile', profile)
+    // console.log('profile', profile)
     // const { profile } = useProfile(user?.user_metadata.username ?? user?.email)
 
     return (
