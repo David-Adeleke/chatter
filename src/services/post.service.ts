@@ -59,7 +59,7 @@ export async function updatePost(postId: string, updates: Partial<CreatePostInpu
 export async function getPostBySlug(slug: string) {
     return supabase
         .from('posts')
-        .select(`*, profiles(username, full_name, avatar_url)`)
+        .select(`*, profiles!posts_author_id_fkey(username, full_name, avatar_url)`)
         .eq('slug', slug)
         .eq('status', 'published')
         .single()
