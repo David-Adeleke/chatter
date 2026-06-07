@@ -6,7 +6,7 @@ export async function toggleLike(userId: string, postId: string) {
         .select('user_id')
         .eq('user_id', userId)
         .eq('post_id', postId)
-        .single()
+        .maybeSingle()
 
     if (data) {
         return supabase
@@ -15,7 +15,7 @@ export async function toggleLike(userId: string, postId: string) {
             .eq('user_id', userId)
             .eq('post_id', postId)
     }
-
+ 
     return supabase
         .from('likes')
         .insert({ user_id: userId, post_id: postId })
@@ -35,7 +35,7 @@ export async function isLiked(userId: string, postId: string) {
         .select('user_id')
         .eq('user_id', userId)
         .eq('post_id', postId)
-        .single()
+        .maybeSingle()
     return !!data
 }
 
@@ -45,7 +45,7 @@ export async function toggleBookmark(userId: string, postId: string) {
         .select('user_id')
         .eq('user_id', userId)
         .eq('post_id', postId)
-        .single()
+        .maybeSingle()
 
     if (data) {
         return supabase
@@ -66,6 +66,6 @@ export async function isBookmarked(userId: string, postId: string) {
         .select('user_id')
         .eq('user_id', userId)
         .eq('post_id', postId)
-        .single()
+        .maybeSingle()
     return !!data
 }
