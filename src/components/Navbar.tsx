@@ -1,40 +1,57 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
-// import { useProfile } from '@/hooks/useProfile'
 import NotificationBell from './NotificationBell'
+import '@/styles/layout.css'
 
 export default function Navbar() {
-    // const { user, signOut } = useAuth()
-    const { user, profile, signOut } = useAuth()
-    const navigate = useNavigate()
+  const { user, signOut } = useAuth()
+  const navigate = useNavigate()
 
-    const handleSignOut = async () => {
-        await signOut()
-        navigate('/')
-    }
-    // console.log('profile', profile)
-    // const { profile } = useProfile(user?.user_metadata.username ?? user?.email)
+  const handleSignOut = async () => {
+    await signOut()
+    navigate('/')
+  }
 
-    return (
-        <nav>
-            <Link to="/">Chatter</Link>
+  return (
+    <header className="navbar">
+      <div className="navbar-inner">
 
-            <div>
-                {user ? (
-                    <>
-                        <Link to="/write">Write</Link>
-                        <NotificationBell />
-                        {/* <Link to={`/@${user.user_metadata.username}`}>Profile</Link> */}
-                        <Link to={`/profile/${profile?.username}`}>Profile</Link>
-                        <button onClick={handleSignOut}>Sign out</button>
-                    </>
-                ) : (
-                    <>
-                        <Link to="/login">Log in</Link>
-                        <Link to="/signup">Sign up</Link>
-                    </>
-                )}
-            </div>
+        <Link to="/" className="navbar-logo">
+          Chatter
+        </Link>
+
+        <nav className="navbar-right" aria-label="Main navigation">
+          {user ? (
+            <>
+              <Link to="/write" className="navbar-link">
+                Write
+              </Link>
+              <NotificationBell />
+              <Link
+                to={`/@${user.user_metadata.username}`}
+                className="navbar-avatar-btn"
+                aria-label="Your profile"
+              >
+                <img
+                  src={user.user_metadata.avatar_url ?? '/default-avatar.png'}
+                  alt={user.user_metadata.username}
+                  className="navbar-avatar"
+                />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="navbar-link">
+                Sign in
+              </Link>
+              <Link to="/signup" className="navbar-cta">
+                Get started
+              </Link>
+            </>
+          )}
         </nav>
-    )
+
+      </div>
+    </header>
+  )
 }
