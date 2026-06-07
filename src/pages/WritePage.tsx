@@ -53,6 +53,7 @@ export default function WritePage() {
             { title, content, excerpt, tags, cover_image_url: '' },
             'published'
         )
+        console.log('publish result:', result)
         if ('post' in result && result.post) navigate(`/posts/${result.post.slug}`)
     }
 
