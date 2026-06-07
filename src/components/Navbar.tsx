@@ -25,7 +25,7 @@ export default function Navbar() {
                         <Link to="/write">Write</Link>
                         <NotificationBell />
                         {/* <Link to={`/@${user.user_metadata.username}`}>Profile</Link> */}
-                        <Link to={`/@${profile?.username}`}>Profile</Link>
+                        <Link to={`/profile/${profile?.username}`}>Profile</Link>
                         <button onClick={handleSignOut}>Sign out</button>
                     </>
                 ) : (

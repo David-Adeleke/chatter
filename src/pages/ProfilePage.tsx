@@ -5,8 +5,8 @@ import SEO from '@/components/SEO'
 import { followUser, unfollowUser } from '@/services/profile.service'
 
 export default function ProfilePage() {
-  const { username: rawUsername } = useParams<{ username: string }>()
-  const username = rawUsername?.startsWith('@') ? rawUsername.slice(1) : rawUsername
+  const { username } = useParams<{ username: string }>()
+  // const username = rawUsername?.startsWith('@') ? rawUsername.slice(1) : rawUsername
   const { user } = useAuth()
   const navigate = useNavigate()
   console.log('username from params:', username)
@@ -35,7 +35,7 @@ export default function ProfilePage() {
         title={`${profile.full_name ?? profile.username} · Chatter`}
         description={profile.bio ?? `Read stories by ${profile.username} on Chatter.`}
         image={profile.avatar_url ?? undefined}
-        url={`/@${profile.username}`}
+        url={`/profile/${profile.username}`}
       />
 
       <header>
