@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getPostBySlug } from '@/services/post.service'
 import { useComments } from '@/hooks/useComments'
@@ -22,17 +23,20 @@ export default function PostPage() {
 
   useEffect(() => {
     if (!slug) return
-    getPostBySlug(slug).then(({ data }) => {
+    getPostBySlug(slug).then(({ data, error: fetchError }) => {
       console.log('data:', data)
-      console.log('error:', error)
+      console.log('error:', fetchError)
       if (!data) {
         setLoading(false)
         return
       }
       setPost(data as PostWithAuthor)
       setLoading(false)
+      supabase.functions.invoke('track-view', {
+        body: { post_id: data.id, viewer_id: user?.id ?? null },
+      })
     })
-  }, [slug, navigate])
+  }, [slug, navigate, user])
 
   const handleComment = async () => {
     if (!newComment.trim()) return
