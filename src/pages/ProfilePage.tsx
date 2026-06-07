@@ -5,7 +5,8 @@ import SEO from '@/components/SEO'
 import { followUser, unfollowUser } from '@/services/profile.service'
 
 export default function ProfilePage() {
-  const { username } = useParams<{ username: string }>()
+  const { username: rawUsername } = useParams<{ username: string }>()
+  const username = rawUsername?.startsWith('@') ? rawUsername.slice(1) : rawUsername
   const { user } = useAuth()
   const navigate = useNavigate()
   console.log('username from params:', username)
