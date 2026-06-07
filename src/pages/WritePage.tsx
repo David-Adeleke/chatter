@@ -14,8 +14,8 @@ export default function WritePage() {
     const [tags, setTags] = useState<string[]>([])
     const [tagInput, setTagInput] = useState('')
     const [lastSaved, setLastSaved] = useState<Date | null>(null)
+    const [draftSaving, setDraftSaving] = useState(false)
     const { save, saving } = usePost()
-    // const { save, saving, postId } = usePost()
     const autosaveRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
     useEffect(() => {
@@ -39,13 +39,16 @@ export default function WritePage() {
         setTagInput('')
     }
 
+    const handleSaveDraft = async () => {
+        if (!title.trim()) return
+        setDraftSaving(true)
+        await save({ title, content, excerpt, tags, cover_image_url: '' }, 'draft')
+        setLastSaved(new Date())
+        setDraftSaving(false)
+    }
+
     const handlePublish = async () => {
         if (!title.trim()) return
-        // const { post, error } = await save(
-        //     { title, content, excerpt, tags, cover_image_url: '' },
-        //     'published'
-        // )
-        // if (post && !error) navigate(`/posts/${post.slug}`)
         const result = await save(
             { title, content, excerpt, tags, cover_image_url: '' },
             'published'
@@ -66,16 +69,16 @@ export default function WritePage() {
             <div role="toolbar" aria-label="Post actions">
                 <button
                     type="button"
-                    onClick={() => save({ title, content, excerpt, tags, cover_image_url: '' }, 'draft')}
-                    disabled={saving || !title.trim()}
-                    aria-busy={saving}
+                    onClick={handleSaveDraft}
+                    disabled={draftSaving || saving || !title.trim()}
+                    aria-busy={draftSaving}
                 >
-                    Save draft
+                    {draftSaving ? 'Saving...' : 'Save draft'}
                 </button>
                 <button
                     type="button"
                     onClick={handlePublish}
-                    disabled={saving || !title.trim()}
+                    disabled={saving || draftSaving || !title.trim()}
                     aria-busy={saving}
                 >
                     {saving ? 'Publishing...' : 'Publish'}
