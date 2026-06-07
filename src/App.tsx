@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '@/components/ProtectedRoute'
 import Layout from '@/components/Layout'
 import { AuthProvider } from '@/features/auth/AuthContext';
-// import { HomePage } from '@/pages/HomePage';
+import { HomePage } from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
 import SignupPage from '@/pages/SignupPage';
 import ProfilePage from '@/pages/ProfilePage';
@@ -24,7 +24,8 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route element={<Layout />}>
-              <Route path="/" element={<FeedPage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/feeds" element={<FeedPage />} />
               <Route path="/search" element={<FeedPage />} />
               <Route path="/tag/:tag" element={<FeedPage />} />
               <Route path="/posts/:slug" element={<PostPage />} />

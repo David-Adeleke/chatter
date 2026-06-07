@@ -22,7 +22,7 @@ export default function SignupPage() {
       setLoading(false)
       return
     }
-    navigate('/')
+    navigate('/feeds')
   }
 
   return (
