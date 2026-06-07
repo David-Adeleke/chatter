@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import { useFeed } from '@/hooks/useFeed'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
@@ -6,6 +7,7 @@ import SEO from '@/components/SEO'
 import PostCard from '@/components/PostCard'
 import SearchBar from '@/components/SearchBar'
 import type { FeedType } from '@/types/feed'
+import '@/styles/feed.css'
 
 export default function FeedPage() {
     const { user } = useAuth()
@@ -24,75 +26,129 @@ export default function FeedPage() {
     const sentinelRef = useInfiniteScroll(loadMore, hasMore && !loading)
 
     return (
-        <main aria-labelledby="feed-heading">
+        <main className="feed-page" aria-labelledby="feed-heading">
             <SEO title="Home · Chatter" description="Discover stories from writers on Chatter." url="/" />
-
             <h1 id="feed-heading" className="sr-only">Feed</h1>
 
-            <SearchBar onSearch={handleSearch} />
+            <div className="feed-layout">
 
-            {!searchQuery && (
-                <nav aria-label="Feed filter">
-                    <button
-                        type="button"
-                        onClick={() => setFeedType('latest')}
-                        aria-pressed={feedType === 'latest'}
-                        aria-current={feedType === 'latest' ? 'true' : undefined}
-                    >
-                        Latest
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setFeedType('trending')}
-                        aria-pressed={feedType === 'trending'}
-                        aria-current={feedType === 'trending' ? 'true' : undefined}
-                    >
-                        Trending
-                    </button>
-                    {user && (
-                        <button
-                            type="button"
-                            onClick={() => setFeedType('following')}
-                            aria-pressed={feedType === 'following'}
-                            aria-current={feedType === 'following' ? 'true' : undefined}
-                        >
-                            Following
-                        </button>
+                <section className="feed-main">
+                    {!searchQuery ? (
+                        <div className="feed-tabs-bar">
+                            <nav className="feed-tabs" aria-label="Feed filter">
+                                <button
+                                    className={`feed-tab${feedType === 'latest' ? ' feed-tab--active' : ''}`}
+                                    type="button"
+                                    onClick={() => setFeedType('latest')}
+                                    aria-pressed={feedType === 'latest'}
+                                >
+                                    For you
+                                </button>
+                                <button
+                                    className={`feed-tab${feedType === 'trending' ? ' feed-tab--active' : ''}`}
+                                    type="button"
+                                    onClick={() => setFeedType('trending')}
+                                    aria-pressed={feedType === 'trending'}
+                                >
+                                    Trending
+                                </button>
+                                {user && (
+                                    <button
+                                        className={`feed-tab${feedType === 'following' ? ' feed-tab--active' : ''}`}
+                                        type="button"
+                                        onClick={() => setFeedType('following')}
+                                        aria-pressed={feedType === 'following'}
+                                    >
+                                        Following
+                                    </button>
+                                )}
+                            </nav>
+                        </div>
+                    ) : (
+                        <div className="feed-search-header">
+                            <p className="feed-search-label">Search results for</p>
+                            <h2 className="feed-search-title">"{searchQuery}"</h2>
+                        </div>
                     )}
-                </nav>
-            )}
 
-            {initialLoad && (
-                <p role="status" aria-live="polite" aria-busy="true">Loading...</p>
-            )}
+                    {initialLoad && (
+                        <div className="feed-skeletons" role="status" aria-label="Loading posts">
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <div key={i} className="feed-skeleton" />
+                            ))}
+                        </div>
+                    )}
 
-            {!initialLoad && posts.length === 0 && (
-                <p role="status" aria-live="polite">
-                    {searchQuery
-                        ? `No results for "${searchQuery}"`
-                        : feedType === 'following'
-                            ? 'Follow some authors to see their posts here.'
-                            : 'No posts yet.'}
-                </p>
-            )}
+                    {!initialLoad && posts.length === 0 && (
+                        <div className="feed-empty" role="status" aria-live="polite">
+                            <p className="feed-empty-text">
+                                {searchQuery
+                                    ? 'No stories matched your search.'
+                                    : feedType === 'following'
+                                        ? 'Follow some writers to see their stories here.'
+                                        : 'No stories yet.'}
+                            </p>
+                            {feedType === 'following' && !searchQuery && (
+                                <p className="feed-empty-sub">
+                                    Explore stories and find writers to follow.
+                                </p>
+                            )}
+                        </div>
+                    )}
 
-            <ul role="list" aria-label="Posts" aria-live="polite">
-                {posts.map(post => (
-                    <li key={post.id}>
-                        <PostCard post={post} />
-                    </li>
-                ))}
-            </ul>
+                    <ul
+                        className="feed-list"
+                        role="list"
+                        aria-label="Posts"
+                        aria-live="polite"
+                        aria-atomic="false"
+                    >
+                        {posts.map(post => (
+                            <li key={post.id} className="feed-item">
+                                <PostCard post={post} />
+                            </li>
+                        ))}
+                    </ul>
 
-            <div
-                ref={sentinelRef}
-                style={{ height: 1 }}
-                aria-hidden="true"
-            />
+                    <div ref={sentinelRef} style={{ height: 1 }} aria-hidden="true" />
 
-            {loading && !initialLoad && (
-                <p role="status" aria-live="polite" aria-busy="true">Loading more...</p>
-            )}
+                    {loading && !initialLoad && (
+                        <div className="feed-loading-more" role="status" aria-live="polite">
+                            <span className="feed-loading-dots">
+                                <span /><span /><span />
+                            </span>
+                        </div>
+                    )}
+                </section>
+
+                <aside className="feed-sidebar" aria-label="Discover">
+                    <div className="feed-sidebar-search">
+                        <SearchBar onSearch={handleSearch} />
+                    </div>
+
+                    <div className="feed-sidebar-section">
+                        <h2 className="feed-sidebar-heading">Recommended topics</h2>
+                        <div className="feed-topics">
+                            {['Technology', 'Design', 'Programming', 'Startups', 'Science', 'Writing', 'Culture'].map(topic => (
+                                <Link
+                                    key={topic}
+                                    to={`/tag/${topic.toLowerCase()}`}
+                                    className="feed-topic-pill"
+                                >
+                                    {topic}
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="feed-sidebar-section">
+                        <p className="feed-sidebar-footer">
+                            <a href="#">Help</a> · <a href="#">Terms</a> · <a href="#">Privacy</a>
+                        </p>
+                    </div>
+                </aside>
+
+            </div>
         </main>
     )
 }
