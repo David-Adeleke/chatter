@@ -4,7 +4,7 @@ import NotificationBell from './NotificationBell'
 import '@/styles/layout.css'
 
 export default function Navbar() {
-  const { user, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth()
   const navigate = useNavigate()
 
   const handleSignOut = async () => {
@@ -28,16 +28,23 @@ export default function Navbar() {
               </Link>
               <NotificationBell />
               <Link
-                to={`/@${user.user_metadata.username}`}
+                to={`/profile/${profile?.username}`}
                 className="navbar-avatar-btn"
                 aria-label="Your profile"
               >
                 <img
-                  src={user.user_metadata.avatar_url ?? '/default-avatar.png'}
-                  alt={user.user_metadata.username}
+                  src={profile?.avatar_url ?? '/default-avatar.png'}
+                  alt={profile?.username ?? 'Profile'}
                   className="navbar-avatar"
                 />
               </Link>
+              <button
+                type="button"
+                className="navbar-link"
+                onClick={handleSignOut}
+              >
+                Sign out
+              </button>
             </>
           ) : (
             <>
