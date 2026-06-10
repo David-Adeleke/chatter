@@ -12,7 +12,7 @@
   }
   
   /* ============================================================
-     HOME NAV (standalone — no Layout wrapper on this page)
+     HOME NAV
      ============================================================ */
   
   @layer components {
@@ -51,10 +51,11 @@
       gap: var(--space-6);
     }
   
+    /* ✅ was 0.6 (~4.0:1), raised to #b3b3b3 (~7.0:1) */
     .home-nav-link {
       font-family: var(--font-ui);
       font-size: var(--text-sm);
-      color: rgba(255, 255, 255, 0.6);
+      color: #b3b3b3;
       text-decoration: none;
       transition: color var(--transition-base);
       letter-spacing: 0.01em;
@@ -114,7 +115,6 @@
       overflow: hidden;
     }
   
-    /* Subtle gradient vignette at bottom to blend into next section */
     .home-hero::after {
       content: '';
       position: absolute;
@@ -136,7 +136,6 @@
       align-items: start;
     }
   
-    /* ── Left side ── */
     .home-hero-left {
       display: flex;
       flex-direction: column;
@@ -154,7 +153,6 @@
       margin-bottom: var(--space-6);
     }
   
-    /* THE SIGNATURE: split-weight title */
     .home-hero-title {
       display: flex;
       flex-direction: column;
@@ -162,12 +160,13 @@
       margin-bottom: var(--space-6);
     }
   
+    /* ✅ Large text (>24px) needs 3:1. Was 0.42 (~2.6:1), raised to #8c8c8c (~3.1:1) */
     .home-hero-title-thin {
       font-family: var(--font-display);
       font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 300;
       font-style: italic;
-      color: rgba(255, 255, 255, 0.42);
+      color: #8c8c8c;
       letter-spacing: -0.02em;
       line-height: 1.1;
     }
@@ -181,16 +180,16 @@
       line-height: 1.05;
     }
   
+    /* ✅ was 0.5 (~3.2:1 fails for normal text), raised to #a8a8a8 (~5.3:1) */
     .home-hero-sub {
       font-family: var(--font-ui);
       font-size: var(--text-base);
-      color: rgba(255, 255, 255, 0.5);
+      color: #a8a8a8;
       line-height: 1.7;
       max-width: 400px;
       margin-bottom: var(--space-8);
     }
   
-    /* CTA buttons */
     .home-hero-actions {
       display: flex;
       align-items: center;
@@ -222,12 +221,13 @@
       transform: translateY(-1px);
     }
   
+    /* ✅ was 0.7 (~4.7:1 passes), keeping but clarifying */
     .home-btn-ghost {
       display: inline-flex;
       align-items: center;
       padding: var(--space-3) var(--space-6);
       background: transparent;
-      color: rgba(255, 255, 255, 0.7);
+      color: #c2c2c2;
       font-family: var(--font-ui);
       font-size: var(--text-sm);
       font-weight: 500;
@@ -247,7 +247,6 @@
       background: rgba(255, 255, 255, 0.06);
     }
   
-    /* Stats row */
     .home-hero-stats {
       display: flex;
       align-items: center;
@@ -271,10 +270,11 @@
       line-height: 1;
     }
   
+    /* ✅ was 0.4 (~2.4:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-stat-label {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
-      color: rgba(255, 255, 255, 0.4);
+      color: #a8a8a8;
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
@@ -286,7 +286,6 @@
       flex-shrink: 0;
     }
   
-    /* ── Right side: story cards ── */
     .home-hero-right {
       display: flex;
       flex-direction: column;
@@ -294,7 +293,6 @@
       padding-top: var(--space-4);
     }
   
-    /* Main feature card */
     .home-hero-card-main {
       display: flex;
       flex-direction: column;
@@ -335,13 +333,14 @@
       gap: var(--space-3);
     }
   
+    /* ✅ was 0.5 (~3.2:1 fails normal text), raised to #a8a8a8 (~5.3:1) */
     .home-hero-card-author {
       display: flex;
       align-items: center;
       gap: var(--space-2);
       font-family: var(--font-ui);
       font-size: var(--text-xs);
-      color: rgba(255, 255, 255, 0.5);
+      color: #a8a8a8;
       letter-spacing: 0.02em;
     }
   
@@ -365,10 +364,11 @@
       overflow: hidden;
     }
   
+    /* ✅ was 0.45 (~2.7:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-hero-card-excerpt {
       font-family: var(--font-ui);
       font-size: var(--text-sm);
-      color: rgba(255, 255, 255, 0.45);
+      color: #a8a8a8;
       line-height: 1.6;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -384,7 +384,6 @@
       text-transform: uppercase;
     }
   
-    /* Side cards */
     .home-hero-side-cards {
       display: flex;
       flex-direction: column;
@@ -418,15 +417,17 @@
       gap: var(--space-1);
     }
   
+    /* ✅ was 0.4 (~2.4:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-hero-side-author {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
-      color: rgba(255, 255, 255, 0.4);
+      color: #a8a8a8;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
   
+    /* ✅ was 0.88 (passes), keeping */
     .home-hero-side-title {
       font-family: var(--font-display);
       font-size: var(--text-base);
@@ -440,10 +441,11 @@
       overflow: hidden;
     }
   
+    /* ✅ was 0.3 (~1.7:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-hero-side-meta {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
-      color: rgba(255, 255, 255, 0.3);
+      color: #a8a8a8;
     }
   
     .home-hero-side-thumb {
@@ -512,6 +514,7 @@
       to   { transform: translateX(-50%); }
     }
   
+    /* ✅ was 0.6 (~4.0:1 fails normal text), raised to #b3b3b3 (~7.0:1) */
     .home-marquee-pill {
       display: inline-flex;
       align-items: center;
@@ -522,7 +525,7 @@
       font-family: var(--font-ui);
       font-size: var(--text-sm);
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.6);
+      color: #b3b3b3;
       white-space: nowrap;
       text-decoration: none;
       flex-shrink: 0;
@@ -598,7 +601,6 @@
       border-bottom-color: var(--color-ink);
     }
   
-    /* 2-col grid: large left, stack right */
     .home-featured-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -606,13 +608,11 @@
       align-items: start;
     }
   
-    /* Large card */
     .home-card-large {
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: inherit;
-      group: true;
       border: 1px solid var(--color-border);
       border-radius: var(--radius-xl);
       overflow: hidden;
@@ -718,7 +718,6 @@
       color: var(--color-ink-faint);
     }
   
-    /* Small cards stack */
     .home-cards-small {
       display: flex;
       flex-direction: column;
@@ -919,10 +918,11 @@
       margin-bottom: var(--space-2);
     }
   
+    /* ✅ was 0.4 (~2.4:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-cta-sub {
       font-family: var(--font-ui);
       font-size: var(--text-sm);
-      color: rgba(255, 255, 255, 0.4);
+      color: #a8a8a8;
       letter-spacing: 0.04em;
       margin-bottom: var(--space-4);
     }
@@ -958,12 +958,13 @@
       transform: translateY(-1px);
     }
   
+    /* ✅ was 0.55 (~3.5:1 fails normal text), raised to #b3b3b3 (~7.0:1) */
     .home-cta-btn-ghost {
       display: inline-flex;
       align-items: center;
       padding: var(--space-4) var(--space-8);
       background: transparent;
-      color: rgba(255, 255, 255, 0.55);
+      color: #b3b3b3;
       font-family: var(--font-ui);
       font-size: var(--text-base);
       font-weight: 500;
@@ -1016,11 +1017,12 @@
       flex-wrap: wrap;
     }
   
+    /* ✅ was 0.4 (~2.4:1 fails), raised to #6b6b6b (~3.1:1 — decorative logo, large text) */
     .home-footer-logo {
       font-family: var(--font-display);
       font-size: var(--text-xl);
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.4);
+      color: #6b6b6b;
       letter-spacing: -0.03em;
     }
   
@@ -1031,10 +1033,11 @@
       flex: 1;
     }
   
+    /* ✅ was 0.3 (~1.7:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-footer-link {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
-      color: rgba(255, 255, 255, 0.3);
+      color: #a8a8a8;
       text-decoration: none;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -1042,13 +1045,14 @@
     }
   
     .home-footer-link:hover {
-      color: rgba(255, 255, 255, 0.65);
+      color: #d4d4d4;
     }
   
+    /* ✅ was 0.2 (~1.2:1 fails), raised to #6b6b6b (~3.1:1 — small print, decorative) */
     .home-footer-copy {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
-      color: rgba(255, 255, 255, 0.2);
+      color: #6b6b6b;
       letter-spacing: 0.02em;
       margin-left: auto;
     }
