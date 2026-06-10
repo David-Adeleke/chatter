@@ -1,0 +1,539 @@
+/* ============================================================
+   WRITE PAGE SHELL
+   ============================================================ */
+
+@layer components {
+    .write-page {
+        min-height: 100vh;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* ============================================================
+     TOOLBAR
+     ============================================================ */
+
+@layer components {
+    .write-toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+        padding: 0 2rem;
+        background: #ffffff;
+        border-bottom: 1px solid #e2ddd4;
+    }
+
+    .write-toolbar-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .write-toolbar-logo {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #111111;
+        letter-spacing: -0.03em;
+    }
+
+    .write-toolbar-saved {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.75rem;
+        color: #767676;
+        letter-spacing: 0.02em;
+    }
+
+    .write-toolbar-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .write-btn-draft {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.375rem 1rem;
+        background: transparent;
+        border: 1px solid #e2ddd4;
+        border-radius: 9999px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #555555;
+        cursor: pointer;
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease,
+            color 200ms ease;
+        white-space: nowrap;
+    }
+
+    .write-btn-draft:hover {
+        background: #f0ede6;
+        border-color: #c5bfb5;
+        color: #111111;
+    }
+
+    .write-btn-draft:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .write-btn-publish {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.375rem 1.25rem;
+        background: #111111;
+        border: 1px solid #111111;
+        border-radius: 9999px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #faf9f6;
+        cursor: pointer;
+        transition:
+            background-color 200ms ease,
+            opacity 200ms ease;
+        white-space: nowrap;
+    }
+
+    .write-btn-publish:hover {
+        background: #2b2b2b;
+        border-color: #2b2b2b;
+    }
+
+    .write-btn-publish:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    @media (max-width: 640px) {
+        .write-toolbar {
+            padding: 0 1rem;
+        }
+
+        .write-toolbar-saved {
+            display: none;
+        }
+
+        .write-btn-draft {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+        }
+
+        .write-btn-publish {
+            font-size: 0.75rem;
+            padding: 0.375rem 1rem;
+        }
+    }
+}
+
+/* ============================================================
+     BODY / FORM WRAPPER
+     ============================================================ */
+
+@layer components {
+    .write-body {
+        flex: 1;
+        width: 100%;
+        max-width: 740px;
+        margin: 0 auto;
+        padding: 3rem 2rem 6rem;
+    }
+
+    .write-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .write-field {
+        width: 100%;
+    }
+
+    @media (max-width: 640px) {
+        .write-body {
+            padding: 2rem 1.25rem 4rem;
+        }
+    }
+}
+
+/* ============================================================
+     TITLE INPUT
+     ============================================================ */
+
+@layer components {
+
+    .write-title-input {
+        width: 100%;
+        padding: 0.75rem 0;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #e2ddd4;
+        border-radius: 0;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(1.875rem, 4vw, 2.5rem);
+        font-weight: 700;
+        color: #111111;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+        outline: none;
+        margin-bottom: 1.5rem;
+        transition: border-color 200ms ease;
+    }
+
+    .write-title-input::placeholder {
+        color: #c5bfb5;
+        font-weight: 700;
+    }
+
+    .write-title-input:focus {
+        border-bottom-color: #111111;
+    }
+}
+
+/* ============================================================
+     EXCERPT INPUT
+     ============================================================ */
+
+@layer components {
+
+    .write-excerpt-input {
+        width: 100%;
+        padding: 0.5rem 0;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 1.125rem;
+        font-weight: 300;
+        font-style: italic;
+        color: #555555;
+        line-height: 1.6;
+        outline: none;
+        margin-bottom: 2rem;
+        transition: color 200ms ease;
+    }
+
+    .write-excerpt-input::placeholder {
+        color: #c5bfb5;
+        font-style: italic;
+    }
+
+    .write-excerpt-input:focus {
+        color: #111111;
+    }
+}
+
+/* ============================================================
+     TIPTAP EDITOR SURFACE
+     ============================================================ */
+
+@layer components {
+    .write-editor-wrap {
+        min-height: 400px;
+        margin-bottom: 3rem;
+        border-top: 1px solid #e2ddd4;
+        padding-top: 2rem;
+    }
+
+    /* Tiptap editor root */
+    .write-editor-wrap .ProseMirror {
+        outline: none;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 1.125rem;
+        line-height: 1.85;
+        color: #111111;
+        min-height: 360px;
+        caret-color: #111111;
+    }
+
+    /* Placeholder text */
+    .write-editor-wrap .ProseMirror p.is-editor-empty:first-child::before {
+        content: attr(data-placeholder);
+        color: #c5bfb5;
+        float: left;
+        height: 0;
+        pointer-events: none;
+        font-style: italic;
+    }
+
+    /* Paragraph spacing */
+    .write-editor-wrap .ProseMirror p {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Headings */
+    .write-editor-wrap .ProseMirror h2 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.25;
+        color: #111111;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .write-editor-wrap .ProseMirror h3 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.375rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+        color: #111111;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Links */
+    .write-editor-wrap .ProseMirror a {
+        color: #111111;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-color: #c5bfb5;
+        transition: text-decoration-color 200ms ease;
+    }
+
+    .write-editor-wrap .ProseMirror a:hover {
+        text-decoration-color: #111111;
+    }
+
+    /* Bold and italic */
+    .write-editor-wrap .ProseMirror strong {
+        font-weight: 700;
+        color: #111111;
+    }
+
+    .write-editor-wrap .ProseMirror em {
+        font-style: italic;
+    }
+
+    /* Lists */
+    .write-editor-wrap .ProseMirror ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .write-editor-wrap .ProseMirror ol {
+        list-style: decimal;
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .write-editor-wrap .ProseMirror li {
+        margin-bottom: 0.5rem;
+        line-height: 1.75;
+    }
+
+    /* Blockquote */
+    .write-editor-wrap .ProseMirror blockquote {
+        border-left: 3px solid #111111;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #555555;
+        font-size: 1.25rem;
+        line-height: 1.7;
+    }
+
+    /* Code */
+    .write-editor-wrap .ProseMirror code {
+        background: #f0ede6;
+        color: #111111;
+        padding: 2px 0.5rem;
+        border-radius: 2px;
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+        font-size: 0.875em;
+    }
+
+    .write-editor-wrap .ProseMirror pre {
+        background: #111111;
+        color: #faf9f6;
+        border-radius: 4px;
+        padding: 1.25rem 1.5rem;
+        overflow-x: auto;
+        margin: 2rem 0;
+        font-size: 0.875rem;
+        line-height: 1.7;
+    }
+
+    .write-editor-wrap .ProseMirror pre code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+    }
+
+    /* Horizontal rule */
+    .write-editor-wrap .ProseMirror hr {
+        border: none;
+        text-align: center;
+        margin: 3rem 0;
+        color: #767676;
+    }
+
+    .write-editor-wrap .ProseMirror hr::after {
+        content: '· · ·';
+        font-size: 1.125rem;
+        letter-spacing: 0.5em;
+    }
+
+    /* Images */
+    .write-editor-wrap .ProseMirror img {
+        max-width: 100%;
+        border-radius: 4px;
+        margin: 2rem auto;
+        display: block;
+    }
+
+    /* Selection */
+    .write-editor-wrap .ProseMirror ::selection {
+        background: #f5c842;
+        color: #111111;
+    }
+}
+
+/* ============================================================
+     TAGS SECTION
+     ============================================================ */
+
+@layer components {
+    .write-tags-fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid #e2ddd4;
+        padding-top: 1.5rem;
+    }
+
+    .write-tags-legend {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #111111;
+        letter-spacing: 0.01em;
+        margin-bottom: 0.75rem;
+        float: left;
+        width: 100%;
+    }
+
+    .write-tags-input-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        margin-bottom: 1rem;
+    }
+
+    .write-tag-input {
+        width: 100%;
+        padding: 0.625rem 1rem;
+        background: #f0ede6;
+        border: 1px solid transparent;
+        border-radius: 9999px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        color: #111111;
+        outline: none;
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease;
+    }
+
+    .write-tag-input:focus {
+        background: #ffffff;
+        border-color: #c5bfb5;
+    }
+
+    .write-tag-input::placeholder {
+        color: #767676;
+    }
+
+    .write-tag-input:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .write-tag-hint {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.75rem;
+        color: #767676;
+        padding-left: 0.25rem;
+    }
+
+    .write-tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .write-tag-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.625rem 0.25rem 0.875rem;
+        background: #f0ede6;
+        border: 1px solid #e2ddd4;
+        border-radius: 9999px;
+    }
+
+    .write-tag-label {
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+        font-size: 0.75rem;
+        color: #111111;
+        letter-spacing: 0.04em;
+    }
+
+    .write-tag-remove {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        background: none;
+        border: none;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        line-height: 1;
+        color: #555555;
+        cursor: pointer;
+        padding: 0;
+        transition:
+            background-color 200ms ease,
+            color 200ms ease;
+    }
+
+    .write-tag-remove:hover {
+        background: #c5bfb5;
+        color: #111111;
+    }
+}
+
+/* ============================================================
+     UTILITY — screen reader only
+     ============================================================ */
+
+@layer components {
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+}
