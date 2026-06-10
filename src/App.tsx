@@ -42,7 +42,14 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
-              <Route path="/tag/:tag" element={<FeedPage />} />
+              <Route 
+                path="/tag/:tag" 
+                element={
+                  <ProtectedRoute>
+                    <FeedPage />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="/posts/:slug" element={<PostPage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
               <Route 
