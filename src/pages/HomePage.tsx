@@ -45,28 +45,6 @@ export default function HomePage() {
       </Helmet>
 
       <div className="home-page">
-
-        {/* ─── NAVBAR ─── */}
-        <header className="home-nav">
-          <div className="home-nav-inner">
-            <Link to="/" className="home-nav-logo">Chatter</Link>
-            <nav className="home-nav-links" aria-label="Main navigation">
-              {user ? (
-                <>
-                  <Link to="/feed" className="home-nav-link">Feed</Link>
-                  <Link to="/write" className="home-nav-cta">Write a story</Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className="home-nav-link">Sign in</Link>
-                  <Link to="/signup" className="home-nav-cta">Get started</Link>
-                </>
-              )}
-            </nav>
-          </div>
-        </header>
-
-        {/* ─── HERO ─── */}
         <section className="home-hero" aria-labelledby="hero-heading">
           <div className="home-hero-inner">
 
@@ -195,7 +173,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ─── TOPICS MARQUEE ─── */}
         <div className="home-marquee-wrap" aria-hidden="true">
           <div className="home-marquee">
             <div className="home-marquee-track">
@@ -206,7 +183,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ─── FEATURED STORIES ─── */}
         {posts.length > 1 && (
           <section className="home-featured" aria-labelledby="featured-heading">
             <div className="home-featured-inner">
@@ -310,7 +286,6 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* ─── PILLARS ─── */}
         <section className="home-pillars" aria-labelledby="pillars-heading">
           <div className="home-pillars-inner">
             <h2 className="home-pillars-title" id="pillars-heading">
@@ -372,7 +347,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ─── FOOTER ─── */}
         <footer className="home-footer">
           <div className="home-footer-inner">
             <span className="home-footer-logo">Chatter</span>
