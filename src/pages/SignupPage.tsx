@@ -22,7 +22,7 @@ export default function SignupPage() {
       setLoading(false)
       return
     }
-    navigate('/feed')
+    navigate('/onboarding')
   }
 
   return (

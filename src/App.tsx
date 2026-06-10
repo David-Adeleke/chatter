@@ -11,6 +11,7 @@ import WritePage from '@/pages/WritePage';
 import EditPage from '@/pages/EditPage';
 import SettingsPage from '@/pages/SettingsPage';
 import DashboardPage from '@/pages/DashboardPage';
+import OnboardingPage from '@/pages/OnboardingPage'
 import FeedPage from '@/pages/FeedPage';
 import PostPage from '@/pages/PostPage';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -55,6 +56,13 @@ function App() {
               />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
+            <Route 
+              path="/onboarding" 
+              element={
+                <ProtectedRoute>
+                  <OnboardingPage />
+                </ProtectedRoute>
+              } />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
