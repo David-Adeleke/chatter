@@ -51,7 +51,6 @@
       gap: var(--space-6);
     }
   
-    /* ✅ was 0.6 (~4.0:1), raised to #b3b3b3 (~7.0:1) */
     .home-nav-link {
       font-family: var(--font-ui);
       font-size: var(--text-sm);
@@ -160,7 +159,6 @@
       margin-bottom: var(--space-6);
     }
   
-    /* ✅ Large text (>24px) needs 3:1. Was 0.42 (~2.6:1), raised to #8c8c8c (~3.1:1) */
     .home-hero-title-thin {
       font-family: var(--font-display);
       font-size: clamp(2.5rem, 5vw, 4rem);
@@ -180,7 +178,6 @@
       line-height: 1.05;
     }
   
-    /* ✅ was 0.5 (~3.2:1 fails for normal text), raised to #a8a8a8 (~5.3:1) */
     .home-hero-sub {
       font-family: var(--font-ui);
       font-size: var(--text-base);
@@ -221,7 +218,6 @@
       transform: translateY(-1px);
     }
   
-    /* ✅ was 0.7 (~4.7:1 passes), keeping but clarifying */
     .home-btn-ghost {
       display: inline-flex;
       align-items: center;
@@ -270,7 +266,6 @@
       line-height: 1;
     }
   
-    /* ✅ was 0.4 (~2.4:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-stat-label {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
@@ -333,7 +328,6 @@
       gap: var(--space-3);
     }
   
-    /* ✅ was 0.5 (~3.2:1 fails normal text), raised to #a8a8a8 (~5.3:1) */
     .home-hero-card-author {
       display: flex;
       align-items: center;
@@ -364,7 +358,6 @@
       overflow: hidden;
     }
   
-    /* ✅ was 0.45 (~2.7:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-hero-card-excerpt {
       font-family: var(--font-ui);
       font-size: var(--text-sm);
@@ -417,7 +410,6 @@
       gap: var(--space-1);
     }
   
-    /* ✅ was 0.4 (~2.4:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-hero-side-author {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
@@ -427,7 +419,6 @@
       text-overflow: ellipsis;
     }
   
-    /* ✅ was 0.88 (passes), keeping */
     .home-hero-side-title {
       font-family: var(--font-display);
       font-size: var(--text-base);
@@ -441,7 +432,6 @@
       overflow: hidden;
     }
   
-    /* ✅ was 0.3 (~1.7:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-hero-side-meta {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
@@ -514,7 +504,6 @@
       to   { transform: translateX(-50%); }
     }
   
-    /* ✅ was 0.6 (~4.0:1 fails normal text), raised to #b3b3b3 (~7.0:1) */
     .home-marquee-pill {
       display: inline-flex;
       align-items: center;
@@ -918,7 +907,6 @@
       margin-bottom: var(--space-2);
     }
   
-    /* ✅ was 0.4 (~2.4:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-cta-sub {
       font-family: var(--font-ui);
       font-size: var(--text-sm);
@@ -958,7 +946,6 @@
       transform: translateY(-1px);
     }
   
-    /* ✅ was 0.55 (~3.5:1 fails normal text), raised to #b3b3b3 (~7.0:1) */
     .home-cta-btn-ghost {
       display: inline-flex;
       align-items: center;
@@ -1017,7 +1004,6 @@
       flex-wrap: wrap;
     }
   
-    /* ✅ was 0.4 (~2.4:1 fails), raised to #6b6b6b (~3.1:1 — decorative logo, large text) */
     .home-footer-logo {
       font-family: var(--font-display);
       font-size: var(--text-xl);
@@ -1033,7 +1019,6 @@
       flex: 1;
     }
   
-    /* ✅ was 0.3 (~1.7:1 fails), raised to #a8a8a8 (~5.3:1) */
     .home-footer-link {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
@@ -1048,7 +1033,6 @@
       color: #d4d4d4;
     }
   
-    /* ✅ was 0.2 (~1.2:1 fails), raised to #6b6b6b (~3.1:1 — small print, decorative) */
     .home-footer-copy {
       font-family: var(--font-ui);
       font-size: var(--text-xs);
