@@ -70,8 +70,8 @@
     .home-hero-title {
       display: flex;
       flex-direction: column;
-      padding: 0 0 .75rem 0;
-      gap: .75rem;
+      /* padding: 0 0 .75rem 0; */
+      gap: 1rem;
       margin-bottom: var(--space-6);
     }
   
