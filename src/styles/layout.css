@@ -51,7 +51,7 @@
   @layer components {
     .navbar {
       position: sticky;
-      padding: 2rem;
+      padding: .75rem;
       top: 0;
       left: 0;
       right: 0;
@@ -100,7 +100,7 @@
     .navbar-link {
       display: inline-flex;
       align-items: center;
-      padding: 0 1rem;
+      padding: 0 .5rem;
       font-family: var(--font-ui);
       font-size: var(--text-sm);
       font-weight: 400;
