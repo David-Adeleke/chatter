@@ -1,0 +1,342 @@
+/* ============================================================
+   PROFILE PAGE SHELL
+   ============================================================ */
+
+@layer components {
+    .profile-page {
+        min-height: calc(100vh - 64px);
+        background: #ffffff;
+    }
+
+    .profile-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    @media (max-width: 640px) {
+        .profile-inner {
+            padding: 0 1.25rem;
+        }
+    }
+}
+
+/* ============================================================
+     PROFILE HEADER
+     ============================================================ */
+
+@layer components {
+    .profile-header {
+        padding: 4rem 0 2.5rem;
+    }
+
+    .profile-header-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .profile-header-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .profile-name {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(1.875rem, 4vw, 2.75rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        color: #111111;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-handle {
+        font-family: "JetBrains Mono", "Fira Code", monospace;
+        font-size: 0.875rem;
+        color: #767676;
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+    }
+
+    .profile-bio {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 1rem;
+        color: #555555;
+        line-height: 1.75;
+        max-width: 540px;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* ============================================================
+     STATS
+     ============================================================ */
+
+@layer components {
+    .profile-stats {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .profile-stat {
+        display: flex;
+        align-items: baseline;
+        gap: 0.375rem;
+    }
+
+    .profile-stat-number {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #111111;
+        letter-spacing: -0.02em;
+        line-height: 1;
+    }
+
+    .profile-stat-label {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.8125rem;
+        color: #767676;
+        letter-spacing: 0.01em;
+    }
+
+    .profile-stat-sep {
+        width: 1px;
+        height: 20px;
+        background: #e2ddd4;
+        flex-shrink: 0;
+    }
+}
+
+/* ============================================================
+     ACTION BUTTONS
+     ============================================================ */
+
+@layer components {
+    .profile-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    /* Follow button — unfollowed state */
+    .profile-btn-follow {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1.5rem;
+        background: #111111;
+        color: #faf9f6;
+        border: 1px solid #111111;
+        border-radius: 9999px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        letter-spacing: 0.01em;
+        transition:
+            background-color 200ms ease,
+            color 200ms ease,
+            border-color 200ms ease;
+        white-space: nowrap;
+    }
+
+    .profile-btn-follow:hover {
+        background: #2b2b2b;
+        border-color: #2b2b2b;
+    }
+
+    /* Follow button — following state */
+    .profile-btn-follow--active {
+        background: #ffffff;
+        color: #111111;
+        border-color: #c5bfb5;
+    }
+
+    .profile-btn-follow--active:hover {
+        background: #fdf0ee;
+        color: #c0392b;
+        border-color: #c0392b;
+    }
+
+    /* Edit profile button */
+    .profile-btn-edit {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1.5rem;
+        background: transparent;
+        color: #111111;
+        border: 1px solid #e2ddd4;
+        border-radius: 9999px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        letter-spacing: 0.01em;
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease;
+        white-space: nowrap;
+    }
+
+    .profile-btn-edit:hover {
+        background: #f0ede6;
+        border-color: #c5bfb5;
+    }
+}
+
+/* ============================================================
+     AVATAR
+     ============================================================ */
+
+@layer components {
+    .profile-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 9999px;
+        object-fit: cover;
+        background: #f0ede6;
+        flex-shrink: 0;
+        border: 2px solid #e2ddd4;
+    }
+
+    @media (max-width: 640px) {
+        .profile-header-top {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+        }
+
+        .profile-header {
+            padding: 2.5rem 0 2rem;
+        }
+    }
+}
+
+/* ============================================================
+     DIVIDER
+     ============================================================ */
+
+@layer components {
+    .profile-divider {
+        border: none;
+        border-top: 1px solid #e2ddd4;
+        margin: 0;
+    }
+}
+
+/* ============================================================
+     LOADING SKELETON
+     ============================================================ */
+
+@layer components {
+    .profile-loading {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .profile-skeleton-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 9999px;
+        background: linear-gradient(90deg,
+                #ffffff 0%,
+                #f0ede6 40%,
+                #ffffff 80%);
+        background-size: 300% 100%;
+        animation: skeleton-slide 1.6s ease-in-out infinite;
+    }
+
+    .profile-skeleton-name {
+        height: 40px;
+        width: 280px;
+        border-radius: 4px;
+        background: linear-gradient(90deg,
+                #ffffff 0%,
+                #f0ede6 40%,
+                #ffffff 80%);
+        background-size: 300% 100%;
+        animation: skeleton-slide 1.6s ease-in-out infinite;
+    }
+
+    .profile-skeleton-bio {
+        height: 20px;
+        width: 420px;
+        max-width: 100%;
+        border-radius: 4px;
+        background: linear-gradient(90deg,
+                #ffffff 0%,
+                #f0ede6 40%,
+                #ffffff 80%);
+        background-size: 300% 100%;
+        animation: skeleton-slide 1.6s ease-in-out infinite;
+    }
+}
+
+/* ============================================================
+     NOT FOUND STATE
+     ============================================================ */
+
+@layer components {
+    .profile-not-found {
+        max-width: 860px;
+        margin: 6rem auto;
+        padding: 0 2rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .profile-not-found-title {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 2.25rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: #111111;
+    }
+
+    .profile-not-found-text {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 1rem;
+        color: #555555;
+        line-height: 1.6;
+    }
+
+    .profile-not-found-link {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        background: #111111;
+        color: #faf9f6;
+        border: none;
+        border-radius: 9999px;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 200ms ease;
+    }
+
+    .profile-not-found-link:hover {
+        background: #2b2b2b;
+    }
+}

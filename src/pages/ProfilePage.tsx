@@ -3,18 +3,42 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { useProfile } from '@/hooks/useProfile'
 import SEO from '@/components/SEO'
 import { followUser, unfollowUser } from '@/services/profile.service'
+import '@/styles/profile.css'
 
 export default function ProfilePage() {
   const { username } = useParams<{ username: string }>()
-  // const username = rawUsername?.startsWith('@') ? rawUsername.slice(1) : rawUsername
   const { user } = useAuth()
   const navigate = useNavigate()
-  console.log('username from params:', username)
 
   const { profile, followCounts, following, setFollowing, loading } = useProfile(username!)
 
-  if (loading) return <p>Loading...</p>
-  if (!profile) return <p>Profile not found.</p>
+  if (loading) {
+    return (
+      <div className="profile-loading">
+        <div className="profile-skeleton-avatar" />
+        <div className="profile-skeleton-name" />
+        <div className="profile-skeleton-bio" />
+      </div>
+    )
+  }
+
+  if (!profile) {
+    return (
+      <div className="profile-not-found">
+        <h1 className="profile-not-found-title">Profile not found</h1>
+        <p className="profile-not-found-text">
+          This writer doesn't exist or may have been removed.
+        </p>
+        <button
+          className="profile-not-found-link"
+          type="button"
+          onClick={() => navigate('/')}
+        >
+          Back to home
+        </button>
+      </div>
+    )
+  }
 
   const isOwner = user?.id === profile.id
 
@@ -30,63 +54,89 @@ export default function ProfilePage() {
   }
 
   return (
-    <main aria-labelledby="profile-heading">
+    <main className="profile-page" aria-labelledby="profile-heading">
       <SEO
-        title={`${profile.full_name ?? profile.username} · Chatter`}
+        title={profile.full_name ?? profile.username}
         description={profile.bio ?? `Read stories by ${profile.username} on Chatter.`}
         image={profile.avatar_url ?? undefined}
-        url={`/profile/${profile.username}`}
+        url={`/@${profile.username}`}
       />
 
-      <header>
-        <img
-          src={profile.avatar_url ?? '/default-avatar.png'}
-          alt={`Avatar of ${profile.full_name ?? profile.username}`}
-        />
+      <div className="profile-inner">
 
-        <h1 id="profile-heading">
-          {profile.full_name ?? profile.username}
-        </h1>
+        <header className="profile-header">
 
-        <p aria-label="Username">@{profile.username}</p>
+          <div className="profile-header-top">
+            <div className="profile-header-info">
+              <h1 className="profile-name" id="profile-heading">
+                {profile.full_name ?? profile.username}
+              </h1>
 
-        {profile.bio && (
-          <p aria-label="Bio">{profile.bio}</p>
-        )}
+              <p className="profile-handle" aria-label="Username">
+                @{profile.username}
+              </p>
 
-        <dl aria-label="Follow counts">
-          <div>
-            <dt>Followers</dt>
-            <dd>{followCounts.followers}</dd>
+              {profile.bio && (
+                <p className="profile-bio" aria-label="Bio">
+                  {profile.bio}
+                </p>
+              )}
+
+              <dl className="profile-stats" aria-label="Follow counts">
+                <div className="profile-stat">
+                  <dd className="profile-stat-number">
+                    {followCounts.followers.toLocaleString()}
+                  </dd>
+                  <dt className="profile-stat-label">Followers</dt>
+                </div>
+                <div className="profile-stat-sep" aria-hidden="true" />
+                <div className="profile-stat">
+                  <dd className="profile-stat-number">
+                    {followCounts.following.toLocaleString()}
+                  </dd>
+                  <dt className="profile-stat-label">Following</dt>
+                </div>
+              </dl>
+
+              <div className="profile-actions">
+                {isOwner ? (
+                  <button
+                    className="profile-btn-edit"
+                    type="button"
+                    onClick={() => navigate('/settings')}
+                    aria-label="Edit your profile"
+                  >
+                    Edit profile
+                  </button>
+                ) : (
+                  <button
+                    className={`profile-btn-follow${following ? ' profile-btn-follow--active' : ''}`}
+                    type="button"
+                    onClick={handleFollow}
+                    aria-pressed={following}
+                    aria-label={following
+                      ? `Unfollow ${profile.username}`
+                      : `Follow ${profile.username}`
+                    }
+                  >
+                    {following ? 'Following' : 'Follow'}
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <img
+              src={profile.avatar_url ?? '/default-avatar.png'}
+              alt={`Avatar of ${profile.full_name ?? profile.username}`}
+              className="profile-avatar"
+            />
           </div>
-          <div>
-            <dt>Following</dt>
-            <dd>{followCounts.following}</dd>
-          </div>
-        </dl>
 
-        {isOwner ? (
-          <button
-            type="button"
-            onClick={() => navigate('/settings')}
-            aria-label="Edit your profile"
-          >
-            Edit profile
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={handleFollow}
-            aria-pressed={following}
-            aria-label={following
-              ? `Unfollow ${profile.username}`
-              : `Follow ${profile.username}`
-            }
-          >
-            {following ? 'Unfollow' : 'Follow'}
-          </button>
-        )}
-      </header>
+        </header>
+
+        <div className="profile-divider" role="separator" />
+
+      </div>
     </main>
   )
 }
