@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/features/auth/AuthContext'
-import { followUser, unfollowUser } from '@/services/profile.service'
+import { followUser } from '@/services/profile.service'
 import SEO from '@/components/SEO'
 import '@/styles/onboarding.css'
 
