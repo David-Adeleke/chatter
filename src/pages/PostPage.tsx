@@ -62,7 +62,7 @@ export default function PostPage() {
         <p className="post-not-found-text">
           This story may have been removed or never existed.
         </p>
-        <Link to="/" className="post-not-found-link">
+        <Link to="/feed" className="post-not-found-link">
           Back to home
         </Link>
       </div>
