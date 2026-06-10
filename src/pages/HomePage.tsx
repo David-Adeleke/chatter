@@ -356,7 +356,7 @@ export default function HomePage() {
               <a href="#" className="home-footer-link">Terms</a>
               <a href="#" className="home-footer-link">Privacy</a>
             </nav>
-            <p className="home-footer-copy">© 2025 Chatter. All rights reserved.</p>
+            <p className="home-footer-copy">© 2026 Chatter. All rights reserved.</p>
           </div>
         </footer>
 
