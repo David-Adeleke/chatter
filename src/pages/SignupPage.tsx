@@ -16,14 +16,18 @@ export default function SignupPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
-    const { error } = await signUpWithEmail(email, password, username)
+    const { data, error } = await signUpWithEmail(email, password, username)
     if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
+        setError(error.message)
+        setLoading(false)
+        return
     }
-    navigate('/onboarding')
-  }
+    if (data.session) {
+        navigate('/onboarding')
+    } else {
+        navigate('/login?message=confirm-email')
+    }
+}
 
   return (
     <>

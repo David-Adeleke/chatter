@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { signInWithEmail, signInWithGoogle, signInWithGitHub } from '@/services/auth.service'
 import SEO from '@/components/SEO'
 import '@/styles/auth.css'
 
 export default function LoginPage() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const message = searchParams.get('message')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -26,7 +28,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <SEO title="Sign in" />
+      <SEO title="Sign in · Chatter" />
       <div className="auth-page">
 
         <div className="auth-header">
@@ -35,6 +37,12 @@ export default function LoginPage() {
         </div>
 
         <div className="auth-card">
+
+          {message === 'confirm-email' && (
+            <div className="auth-alert auth-alert--info" role="status">
+              Check your email to confirm your account before signing in.
+            </div>
+          )}
 
           {error && (
             <div className="auth-alert" role="alert">
