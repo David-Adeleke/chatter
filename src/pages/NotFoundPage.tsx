@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom'
 import SEO from '@/components/SEO'
-import HomeLink from '@/components/HomeLink'
+import HomeLink from '@/components/HomeLinks'
 // import '@/components.css'
 
 export default function NotFoundPage() {

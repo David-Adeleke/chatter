@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { signInWithEmail, signInWithGoogle, signInWithGitHub } from '@/services/auth.service'
-import HomeLink from '@/components/HomeLink'
+import HomeLink from '@/components/HomeLinks'
 import SEO from '@/components/SEO'
 import '@/styles/auth.css'
 

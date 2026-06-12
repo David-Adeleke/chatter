@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/features/auth/AuthContext'
 import { followUser } from '@/services/profile.service'
-import HomeLink from '@/components/HomeLink'
+import HomeLink from '@/components/HomeLinks'
 import SEO from '@/components/SEO'
 import '@/styles/onboarding.css'
 
