@@ -1,0 +1,321 @@
+/* ============================================================
+   NOTIFICATION ITEM
+   ============================================================ */
+
+@layer components {
+    .notif-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.875rem 1rem;
+        background: #ffffff;
+        border-bottom: 1px solid #e2ddd4;
+        text-decoration: none;
+        transition: background-color 200ms ease;
+        position: relative;
+    }
+
+    .notif-item:last-child {
+        border-bottom: none;
+    }
+
+    .notif-item:hover {
+        background: #f0ede6;
+    }
+
+    /* Read state — dimmed */
+    .notif-item--read {
+        background: #faf9f6;
+    }
+
+    .notif-item--read:hover {
+        background: #f0ede6;
+    }
+}
+
+/* ============================================================
+     AVATAR
+     ============================================================ */
+
+@layer components {
+    .notif-avatar-wrap {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    /* #111111 on #f0ede6 = 16.5:1 ✅ */
+    .notif-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 9999px;
+        object-fit: cover;
+        background: #f0ede6;
+        display: block;
+    }
+
+    .notif-avatar-fallback {
+        width: 36px;
+        height: 36px;
+        border-radius: 9999px;
+        background: #e2ddd4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #555555;
+        flex-shrink: 0;
+    }
+
+    /* Unread dot — sits on top right of avatar */
+    .notif-unread-dot {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: #c0392b;
+        border: 2px solid #ffffff;
+    }
+
+    .notif-item--read .notif-unread-dot {
+        display: none;
+    }
+}
+
+/* ============================================================
+     BODY
+     ============================================================ */
+
+@layer components {
+    .notif-body {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    /* #111111 on #ffffff = 18.1:1 ✅ */
+    .notif-text {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #111111;
+        line-height: 1.5;
+    }
+
+    /* Read state — muted text */
+    /* #555555 on #faf9f6 = 6.9:1 ✅ */
+    .notif-item--read .notif-text {
+        font-weight: 400;
+        color: #555555;
+    }
+
+    /* #555555 on #ffffff = 7.0:1 ✅ */
+    .notif-post-title {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 0.8125rem;
+        color: #555555;
+        line-height: 1.5;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .notif-item--read .notif-post-title {
+        color: #767676;
+    }
+
+    /* #767676 on #ffffff = 4.5:1 ✅ */
+    .notif-date {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.75rem;
+        color: #767676;
+        letter-spacing: 0.01em;
+        margin-top: 0.125rem;
+    }
+}
+
+/* ============================================================
+     NOTIFICATION BELL WRAPPER
+     (styles for the bell button + dropdown that wraps NotificationItem)
+     ============================================================ */
+
+@layer components {
+    .notif-bell-wrap {
+        position: relative;
+    }
+
+    /* Bell button */
+    .notif-bell-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: none;
+        border-radius: 9999px;
+        color: #555555;
+        cursor: pointer;
+        transition:
+            background-color 200ms ease,
+            color 200ms ease;
+    }
+
+    .notif-bell-btn:hover {
+        background: #f0ede6;
+        color: #111111;
+    }
+
+    /* Unread count badge on bell */
+    /* #ffffff on #c0392b = 5.5:1 ✅ */
+    .notif-bell-badge {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 3px;
+        background: #c0392b;
+        color: #ffffff;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        border: 2px solid #ffffff;
+    }
+
+    /* Dropdown panel */
+    .notif-dropdown {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        width: 360px;
+        background: #ffffff;
+        border: 1px solid #e2ddd4;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        animation: slideDown 0.2s ease forwards;
+        z-index: 100;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Dropdown header */
+    .notif-dropdown-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.875rem 1rem;
+        border-bottom: 1px solid #e2ddd4;
+    }
+
+    /* #111111 on #ffffff = 18.1:1 ✅ */
+    .notif-dropdown-title {
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #111111;
+        letter-spacing: 0.01em;
+    }
+
+    /* #555555 on #ffffff = 7.0:1 ✅ */
+    .notif-mark-all-btn {
+        background: none;
+        border: none;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #555555;
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        transition:
+            color 200ms ease,
+            background-color 200ms ease;
+        letter-spacing: 0.01em;
+    }
+
+    .notif-mark-all-btn:hover {
+        color: #111111;
+        background: #f0ede6;
+    }
+
+    /* Scrollable list */
+    .notif-dropdown-list {
+        max-height: 400px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #c5bfb5 transparent;
+    }
+
+    .notif-dropdown-list::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .notif-dropdown-list::-webkit-scrollbar-thumb {
+        background: #c5bfb5;
+        border-radius: 9999px;
+    }
+
+    /* Empty state */
+    /* #767676 on #ffffff = 4.5:1 ✅ */
+    .notif-empty {
+        padding: 3rem 1rem;
+        text-align: center;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.875rem;
+        color: #767676;
+        line-height: 1.6;
+    }
+
+    /* Loading state */
+    .notif-loading {
+        padding: 2rem 1rem;
+        text-align: center;
+        font-family: "Inter", system-ui, sans-serif;
+        font-size: 0.75rem;
+        color: #767676;
+        letter-spacing: 0.05em;
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.4;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .notif-dropdown {
+            width: calc(100vw - 2rem);
+            right: -1rem;
+        }
+    }
+}

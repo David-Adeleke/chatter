@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { getNotificationText } from '@/lib/notificationText'
 import type { Notification } from '@/types/notification'
+import '@/styles/notifications.css'
 
 interface NotificationItemProps {
     notification: Notification
@@ -25,19 +26,44 @@ export default function NotificationItem({ notification, onRead }: NotificationI
         <Link
             to={href}
             onClick={handleClick}
-            style={{ opacity: notification.read ? 0.5 : 1 }}
+            className={`notif-item${notification.read ? ' notif-item--read' : ''}`}
+            aria-label={`${getNotificationText(notification.type, actorName)}${notification.read ? ', read' : ', unread'}`}
         >
-            {actor?.avatar_url && (
-                <img src={actor.avatar_url} alt={actorName} />
-            )}
-            <div>
-                <p>{getNotificationText(notification.type, actorName)}</p>
-                {notification.posts && (
-                    <p>{notification.posts.title}</p>
+            <div className="notif-avatar-wrap">
+                {actor?.avatar_url ? (
+                    <img
+                        src={actor.avatar_url}
+                        alt={actorName}
+                        className="notif-avatar"
+                    />
+                ) : (
+                    <div className="notif-avatar-fallback" aria-hidden="true">
+                        {actorName.charAt(0).toUpperCase()}
+                    </div>
                 )}
-                <span>{new Date(notification.created_at).toLocaleDateString()}</span>
+                {!notification.read && (
+                    <span className="notif-unread-dot" aria-hidden="true" />
+                )}
             </div>
-            {!notification.read && <span>●</span>}
+
+            <div className="notif-body">
+                <p className="notif-text">
+                    {getNotificationText(notification.type, actorName)}
+                </p>
+
+                {notification.posts && (
+                    <p className="notif-post-title">
+                        {notification.posts.title}
+                    </p>
+                )}
+
+                <time className="notif-date">
+                    {new Date(notification.created_at).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                    })}
+                </time>
+            </div>
         </Link>
     )
 }
