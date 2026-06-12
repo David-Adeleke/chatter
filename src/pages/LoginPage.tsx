@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { signInWithEmail, signInWithGoogle, signInWithGitHub } from '@/services/auth.service'
+import HomeLink from '@/components/HomeLink'
 import SEO from '@/components/SEO'
 import '@/styles/auth.css'
 
@@ -28,11 +29,11 @@ export default function LoginPage() {
 
   return (
     <>
-      <SEO title="Sign in · Chatter" />
+      <SEO title="Sign in" />
       <div className="auth-page">
 
         <div className="auth-header">
-          <Link to="/" className="auth-logo">Chatter</Link>
+          <HomeLink className="auth-logo">Chatter</HomeLink>
           <h1 className="auth-title">Welcome back.</h1>
         </div>
 

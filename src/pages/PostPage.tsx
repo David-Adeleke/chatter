@@ -7,6 +7,7 @@ import { useAuth } from '@/features/auth/AuthContext'
 import LikeButton from '@/components/LikeButton'
 import BookmarkButton from '@/components/BookmarkButton'
 import CommentThread from '@/components/CommentThread'
+import HomeLink from '@/components/HomeLink'
 import SEO from '@/components/SEO'
 import type { PostWithAuthor } from '@/types/post'
 import '@/styles/post.css'
@@ -62,9 +63,9 @@ export default function PostPage() {
         <p className="post-not-found-text">
           This story may have been removed or never existed.
         </p>
-        <Link to="/feed" className="post-not-found-link">
+        <HomeLink className="post-not-found-link">
           Back to home
-        </Link>
+        </HomeLink>
       </div>
     )
   }

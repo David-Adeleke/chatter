@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import { useProfile } from '@/hooks/useProfile'
+import { useHomeLink } from '@/hooks/useHomeLink'
 import SEO from '@/components/SEO'
 import { followUser, unfollowUser } from '@/services/profile.service'
 import '@/styles/profile.css'
@@ -9,6 +10,7 @@ export default function ProfilePage() {
   const { username } = useParams<{ username: string }>()
   const { user } = useAuth()
   const navigate = useNavigate()
+  const homeLink = useHomeLink()
 
   const { profile, followCounts, following, setFollowing, loading } = useProfile(username!)
 
@@ -32,7 +34,7 @@ export default function ProfilePage() {
         <button
           className="profile-not-found-link"
           type="button"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(homeLink)}
         >
           Back to home
         </button>
@@ -65,7 +67,6 @@ export default function ProfilePage() {
       <div className="profile-inner">
 
         <header className="profile-header">
-
           <div className="profile-header-top">
             <div className="profile-header-info">
               <h1 className="profile-name" id="profile-heading">
@@ -131,7 +132,6 @@ export default function ProfilePage() {
               className="profile-avatar"
             />
           </div>
-
         </header>
 
         <div className="profile-divider" role="separator" />

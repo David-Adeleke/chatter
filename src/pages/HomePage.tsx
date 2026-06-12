@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/features/auth/AuthContext'
+import HomeLink from '@/components/HomeLink'
 import type { PostWithAuthor } from '@/types/post'
 import '@/styles/home.css'
 
@@ -13,8 +14,16 @@ const TOPICS = [
 ]
 
 export default function HomePage() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
   const [posts, setPosts] = useState<PostWithAuthor[]>([])
+
+  // Redirect logged-in users straight to their feed
+  useEffect(() => {
+    if (!loading && user) {
+      navigate('/feed', { replace: true })
+    }
+  }, [user, loading, navigate])
 
   useEffect(() => {
     supabase
@@ -28,9 +37,12 @@ export default function HomePage() {
       })
   }, [])
 
-  const heroPost = posts[0] ?? null
-  const sidePost1 = posts[1] ?? null
-  const sidePost2 = posts[2] ?? null
+  // Don't flash marketing page while auth resolves
+  if (loading) return null
+
+  const heroPost     = posts[0] ?? null
+  const sidePost1    = posts[1] ?? null
+  const sidePost2    = posts[2] ?? null
   const featuredLarge = posts[1] ?? null
   const featuredSmall = posts.slice(2, 5)
 
@@ -45,6 +57,17 @@ export default function HomePage() {
       </Helmet>
 
       <div className="home-page">
+
+        <header className="home-nav">
+          <div className="home-nav-inner">
+            <HomeLink className="home-nav-logo">Chatter</HomeLink>
+            <nav className="home-nav-links" aria-label="Main navigation">
+              <Link to="/login" className="home-nav-link">Sign in</Link>
+              <Link to="/signup" className="home-nav-cta">Get started</Link>
+            </nav>
+          </div>
+        </header>
+
         <section className="home-hero" aria-labelledby="hero-heading">
           <div className="home-hero-inner">
 
@@ -62,17 +85,8 @@ export default function HomePage() {
               </p>
 
               <div className="home-hero-actions">
-                {user ? (
-                  <>
-                    <Link to="/feed" className="home-btn-primary">Go to your feed</Link>
-                    <Link to="/write" className="home-btn-ghost">Write a story</Link>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/signup" className="home-btn-primary">Start writing free</Link>
-                    <Link to="/feed" className="home-btn-ghost">Explore stories</Link>
-                  </>
-                )}
+                <Link to="/signup" className="home-btn-primary">Start writing free</Link>
+                <Link to="/feed" className="home-btn-ghost">Explore stories</Link>
               </div>
 
               <div className="home-hero-stats">
@@ -320,7 +334,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ─── CTA ─── */}
         <section className="home-cta" aria-labelledby="cta-heading">
           <div className="home-cta-inner">
             <span className="home-cta-eyebrow">Ready?</span>
@@ -329,20 +342,12 @@ export default function HomePage() {
             </h2>
             <p className="home-cta-sub">Free to read. Free to write. Always.</p>
             <div className="home-cta-actions">
-              {user ? (
-                <Link to="/write" className="home-cta-btn-primary">
-                  Write something
-                </Link>
-              ) : (
-                <>
-                  <Link to="/signup" className="home-cta-btn-primary">
-                    Create your account
-                  </Link>
-                  <Link to="/feed" className="home-cta-btn-ghost">
-                    Browse first
-                  </Link>
-                </>
-              )}
+              <Link to="/signup" className="home-cta-btn-primary">
+                Create your account
+              </Link>
+              <Link to="/feed" className="home-cta-btn-ghost">
+                Browse first
+              </Link>
             </div>
           </div>
         </section>
