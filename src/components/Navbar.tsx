@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import NotificationBell from './NotificationBell'
-import HomeLink from '@/components/HomeLink'
-import { useHomeLink } from '@/hooks/useHomeLinks'
+import HomeLink from '@/components/HomeLinks'
+import { useHomeLink } from '@/hooks/useHomeLink'
 import '@/styles/layout.css'
 
 export default function Navbar() {
