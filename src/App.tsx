@@ -2,6 +2,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '@/components/ProtectedRoute'
 import Layout from '@/components/Layout'
+import { OnboardingGuard } from '@/components/OnboardingGuard';
 import { AuthProvider } from '@/features/auth/AuthContext';
 import HomePage from '@/pages/HomePage';
 import LoginPage from '@/pages/LoginPage';
@@ -26,39 +27,39 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route element={<Layout />}>
               <Route path="/" element={<HomePage />} />
-              <Route 
-                path="/feed" 
+              <Route
+                path="/feed"
                 element={
                   <ProtectedRoute>
                     <FeedPage />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/search" 
+              <Route
+                path="/search"
                 element={
                   <ProtectedRoute>
                     <FeedPage />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/tag/:tag" 
+              <Route
+                path="/tag/:tag"
                 element={
                   <ProtectedRoute>
                     <FeedPage />
                   </ProtectedRoute>
-                } 
+                }
               />
               <Route path="/posts/:slug" element={<PostPage />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <DashboardPage />
                   </ProtectedRoute>
-                } 
+                }
               />
               <Route
                 path="/write"
@@ -66,7 +67,7 @@ function App() {
                   <ProtectedRoute>
                     <WritePage />
                   </ProtectedRoute>
-                } 
+                }
               />
               <Route
                 path="/edit/:id"
@@ -85,12 +86,12 @@ function App() {
               />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
-            <Route 
-              path="/onboarding" 
+            <Route
+              path="/onboarding"
               element={
-                <ProtectedRoute>
+                <OnboardingGuard>
                   <OnboardingPage />
-                </ProtectedRoute>
+                </OnboardingGuard>
               } />
           </Routes>
         </BrowserRouter>
