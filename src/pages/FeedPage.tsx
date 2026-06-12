@@ -97,9 +97,9 @@ export default function FeedPage() {
                   <p className="feed-empty-sub">
                     Follow some writers to see their stories here.
                   </p>
-                  <a href="/onboarding" className="feed-empty-cta">
+                  <Link to="/onboarding?from=discover" className="feed-empty-cta">
                     Discover writers →
-                  </a>
+                  </Link>
                 </>
               )}
             </div>
