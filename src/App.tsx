@@ -52,7 +52,7 @@ function App() {
                 }
               />
               <Route path="/posts/:slug" element={<PostPage />} />
-              <Route path="/profile/:username" element={<ProfilePage />} />
+              <Route path="/@:username" element={<ProfilePage />} />
               <Route
                 path="/dashboard"
                 element={
