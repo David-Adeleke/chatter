@@ -6,7 +6,7 @@ import { useHomeLink } from '@/hooks/useHomeLink'
 import '@/styles/layout.css'
 
 export default function Navbar() {
-  const { user, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth()
   const navigate = useNavigate()
   const homeLink = useHomeLink()
 
@@ -31,7 +31,7 @@ export default function Navbar() {
               </Link>
               <NotificationBell />
               <Link
-                to={`/@${user.user_metadata.username}`}
+                to={`/@${profile?.username}`}
                 className="navbar-avatar-btn"
                 aria-label="Your profile"
               >
