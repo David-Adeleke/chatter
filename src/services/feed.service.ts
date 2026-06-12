@@ -9,7 +9,7 @@ export async function getLatestFeed(options: FeedOptions): Promise<FeedResult> {
 
   let query = supabase
     .from('posts')
-    .select('*, profiles(id, username, full_name, avatar_url)', { count: 'exact' })
+    .select('*, profiles!posts_author_id_fkey(id, username, full_name, avatar_url)', { count: 'exact' })
     .eq('status', 'published')
     .order('published_at', { ascending: false })
     .range(from, to)
@@ -73,7 +73,7 @@ export async function getFollowingFeed(
 
   const { data, count, error } = await supabase
     .from('posts')
-    .select('*, profiles(id, username, full_name, avatar_url)', { count: 'exact' })
+    .select('*, profiles!posts_author_id_fkey(id, username, full_name, avatar_url)', { count: 'exact' })
     .eq('status', 'published')
     .in('author_id', authorIds)
     .order('published_at', { ascending: false })
@@ -120,7 +120,7 @@ export async function getTrendingFeed(options: FeedOptions): Promise<FeedResult>
 
   const { data, error } = await supabase
     .from('posts')
-    .select('*, profiles(id, username, full_name, avatar_url)')
+    .select('*, profiles!posts_author_id_fkey(id, username, full_name, avatar_url)')
     .eq('status', 'published')
     .in('id', sortedIds)
 
@@ -150,7 +150,7 @@ export async function searchPosts(
 
   const { data, count, error } = await supabase
     .from('posts')
-    .select('*, profiles(id, username, full_name, avatar_url)', { count: 'exact' })
+    .select('*, profiles!posts_author_id_fkey(id, username, full_name, avatar_url)', { count: 'exact' })
     .eq('status', 'published')
     .or(`title.ilike.%${query}%,excerpt.ilike.%${query}%`)
     .order('published_at', { ascending: false })
