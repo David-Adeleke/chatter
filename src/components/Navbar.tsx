@@ -1,24 +1,27 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import NotificationBell from './NotificationBell'
+import HomeLink from '@/components/HomeLink'
+import { useHomeLink } from '@/hooks/useHomeLink'
 import '@/styles/layout.css'
 
 export default function Navbar() {
   const { user, profile, signOut } = useAuth()
   const navigate = useNavigate()
+  const homeLink = useHomeLink()
 
   const handleSignOut = async () => {
     await signOut()
-    navigate('/')
+    navigate(homeLink)
   }
 
   return (
     <header className="navbar">
       <div className="navbar-inner">
 
-        <Link to="/" className="navbar-logo">
+        <HomeLink className="navbar-logo">
           Chatter
-        </Link>
+        </HomeLink>
 
         <nav className="navbar-right" aria-label="Main navigation">
           {user ? (

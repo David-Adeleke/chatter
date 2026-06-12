@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/features/auth/AuthContext'
 import { followUser } from '@/services/profile.service'
+import HomeLink from '@/components/HomeLink'
 import SEO from '@/components/SEO'
 import '@/styles/onboarding.css'
 
@@ -102,7 +103,7 @@ export default function OnboardingPage() {
       <div className="onboarding-page">
 
         <div className="onboarding-header">
-          <a href="/" className="onboarding-logo">Chatter</a>
+          <HomeLink className="onboarding-logo">Chatter</HomeLink>
           <div className="onboarding-progress">
             <div className="onboarding-progress-bar" />
           </div>
