@@ -17,6 +17,7 @@ export interface Post {
 
 export interface PostWithAuthor extends Post {
     profiles: {
+        id: string
         username: string
         full_name: string | null
         avatar_url: string | null

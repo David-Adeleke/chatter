@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useAuth } from '@/features/auth/AuthContext'
+import { followUser, unfollowUser, isFollowing } from '@/services/profile.service'
 import type { PostWithAuthor } from '@/types/post'
+import { useEffect } from 'react'
 
 interface PostCardProps {
   post: PostWithAuthor
@@ -7,6 +11,29 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   const author = post.profiles
+  const { user } = useAuth()
+  const [following, setFollowing] = useState(false)
+  const [loadingFollow, setLoadingFollow] = useState(false)
+
+  const isOwnPost = user?.id === author.id
+
+  useEffect(() => {
+    if (!user || isOwnPost) return
+    isFollowing(user.id, author.id).then(setFollowing)
+  }, [user, author.id, isOwnPost])
+
+  const handleFollow = async () => {
+    if (!user) return
+    setLoadingFollow(true)
+    if (following) {
+      await unfollowUser(user.id, author.id)
+      setFollowing(false)
+    } else {
+      await followUser(user.id, author.id)
+      setFollowing(true)
+    }
+    setLoadingFollow(false)
+  }
 
   return (
     <article className="post-card">
@@ -30,6 +57,16 @@ export default function PostCard({ post }: PostCardProps) {
             day: 'numeric',
           })}
         </time>
+        {user && !isOwnPost && (
+          <button
+            type="button"
+            className={`post-card-follow-btn${following ? ' post-card-follow-btn--following' : ''}`}
+            onClick={handleFollow}
+            disabled={loadingFollow}
+          >
+            {following ? 'Following' : '+ Follow'}
+          </button>
+        )}
       </div>
 
       <div className="post-card-body">
