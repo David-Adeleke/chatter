@@ -23,10 +23,17 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/onboarding"
+              element={
+                <OnboardingGuard>
+                  <OnboardingPage />
+                </OnboardingGuard>
+              } />
             <Route element={<Layout />}>
-              <Route path="/" element={<HomePage />} />
               <Route
                 path="/feed"
                 element={
@@ -86,13 +93,6 @@ function App() {
               />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
-            <Route
-              path="/onboarding"
-              element={
-                <OnboardingGuard>
-                  <OnboardingPage />
-                </OnboardingGuard>
-              } />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
