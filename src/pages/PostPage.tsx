@@ -8,6 +8,7 @@ import LikeButton from '@/components/LikeButton'
 import BookmarkButton from '@/components/BookmarkButton'
 import CommentThread from '@/components/CommentThread'
 import HomeLink from '@/components/HomeLinks'
+import Avatar from '@/components/Avatar'
 import SEO from '@/components/SEO'
 import type { PostWithAuthor } from '@/types/post'
 import '@/styles/post.css'
@@ -117,9 +118,9 @@ export default function PostPage() {
                 to={`/@${post.profiles.username}`}
                 className="post-byline-author"
               >
-                <img
+                <Avatar
                   src={post.profiles.avatar_url ?? '/default-avatar.png'}
-                  alt={post.profiles.username}
+                  username={post.profiles.username}
                   className="post-byline-avatar"
                 />
                 <span className="post-byline-name">
@@ -172,9 +173,9 @@ export default function PostPage() {
             </div>
 
             <div className="post-footer-author">
-              <img
+              <Avatar
                 src={post.profiles.avatar_url ?? '/default-avatar.png'}
-                alt={post.profiles.username}
+                username={post.profiles.username}
                 className="post-footer-avatar"
               />
               <div>
@@ -199,9 +200,9 @@ export default function PostPage() {
 
           {user ? (
             <div className="post-comment-compose">
-              <img
+              <Avatar
                 src={user.user_metadata.avatar_url ?? '/default-avatar.png'}
-                alt="Your avatar"
+                username={user.user_metadata.username}
                 className="post-comment-compose-avatar"
               />
               <div className="post-comment-compose-field">
