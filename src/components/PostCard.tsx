@@ -44,7 +44,7 @@ export default function PostCard({ post }: PostCardProps) {
           src={author.avatar_url ?? '/default-avatar.png'}
           className="post-card-avatar"
           username={author.username}
-          size={96}
+          // size={96}
         />
         <Link to={`/@${author.username}`} className="post-card-author-name">
           {author.full_name ?? author.username}

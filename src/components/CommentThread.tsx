@@ -45,7 +45,7 @@ export default function CommentThreadComponent({
             src={thread.profiles.avatar_url ?? '/default-avatar.png'}
             username={thread.profiles.username}
             className="comment-avatar"
-            size={96}
+            // size={96}
           />
           <div>
             <span className="comment-author-name">

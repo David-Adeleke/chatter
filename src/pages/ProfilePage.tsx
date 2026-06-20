@@ -131,7 +131,7 @@ export default function ProfilePage() {
               src={profile.avatar_url ?? '/default-avatar.png'}
               username={ profile.username }
               className="profile-avatar"
-              size={96}
+              // size={96}
             />
           </div>
         </header>

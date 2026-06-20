@@ -39,7 +39,7 @@ export default function Navbar() {
                 <Avatar
                   src={user.user_metadata.avatar_url ?? '/default-avatar.png'}
                   username={user.user_metadata.username}
-                  size={96}
+                  // size={96}
                   className="navbar-avatar"
                 />
               </Link>

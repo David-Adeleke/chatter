@@ -135,7 +135,7 @@ export default function OnboardingPage() {
                         src={profile.avatar_url ?? '/default-avatar.png'}
                         username={profile.username}
                         className="onboarding-avatar"
-                        size={96}
+                        // size={96}
                       />
                       <button
                         className={`onboarding-follow-btn${isFollowing ? ' onboarding-follow-btn--active' : ''}`}

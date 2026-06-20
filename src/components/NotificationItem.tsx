@@ -36,7 +36,7 @@ export default function NotificationItem({ notification, onRead }: NotificationI
                         src={actor.avatar_url}
                         className="notif-avatar"
                         username={actor.username}
-                        size={96}
+                        // size={96}
                     />
                 ) : (
                     <div className="notif-avatar-fallback" aria-hidden="true">
