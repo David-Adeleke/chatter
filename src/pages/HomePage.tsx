@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/features/auth/AuthContext'
-import HomeLink from '@/components/HomeLinks'
+// import HomeLink from '@/components/HomeLinks'
 import type { PostWithAuthor } from '@/types/post'
 import '@/styles/home.css'
 
