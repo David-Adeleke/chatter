@@ -57,17 +57,6 @@ export default function HomePage() {
       </Helmet>
 
       <div className="home-page">
-
-        <header className="home-nav">
-          <div className="home-nav-inner">
-            <HomeLink className="home-nav-logo">Chatter</HomeLink>
-            <nav className="home-nav-links" aria-label="Main navigation">
-              <Link to="/login" className="home-nav-link">Sign in</Link>
-              <Link to="/signup" className="home-nav-cta">Get started</Link>
-            </nav>
-          </div>
-        </header>
-
         <section className="home-hero" aria-labelledby="hero-heading">
           <div className="home-hero-inner">
 
