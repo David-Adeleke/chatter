@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import type { CommentThread } from '@/hooks/useComments'
+import Avatar from '@/components/Avatar'
 
 interface CommentThreadProps {
   thread: CommentThread
@@ -40,10 +41,11 @@ export default function CommentThreadComponent({
     <div className="comment">
       <div className="comment-header">
         <Link to={`/@${thread.profiles.username}`} className="comment-author">
-          <img
+          <Avatar
             src={thread.profiles.avatar_url ?? '/default-avatar.png'}
-            alt={thread.profiles.username}
+            username={thread.profiles.username}
             className="comment-avatar"
+            size={96}
           />
           <div>
             <span className="comment-author-name">

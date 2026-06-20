@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { getNotificationText } from '@/lib/notificationText'
 import type { Notification } from '@/types/notification'
 import '@/styles/notifications.css'
+import Avatar from '@/components/Avatar'
 
 interface NotificationItemProps {
     notification: Notification
@@ -31,10 +32,11 @@ export default function NotificationItem({ notification, onRead }: NotificationI
         >
             <div className="notif-avatar-wrap">
                 {actor?.avatar_url ? (
-                    <img
+                    <Avatar
                         src={actor.avatar_url}
-                        alt={actorName}
                         className="notif-avatar"
+                        username={actor.username}
+                        size={96}
                     />
                 ) : (
                     <div className="notif-avatar-fallback" aria-hidden="true">

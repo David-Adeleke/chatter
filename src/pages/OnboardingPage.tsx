@@ -5,6 +5,7 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { followUser } from '@/services/profile.service'
 import HomeLink from '@/components/HomeLinks'
 import SEO from '@/components/SEO'
+import Avatar from '@/components/Avatar'
 import '@/styles/onboarding.css'
 
 interface SuggestedProfile {
@@ -130,10 +131,11 @@ export default function OnboardingPage() {
                 return (
                   <li key={profile.id} className="onboarding-card">
                     <div className="onboarding-card-top">
-                      <img
+                      <Avatar
                         src={profile.avatar_url ?? '/default-avatar.png'}
-                        alt={profile.username}
+                        username={profile.username}
                         className="onboarding-avatar"
+                        size={96}
                       />
                       <button
                         className={`onboarding-follow-btn${isFollowing ? ' onboarding-follow-btn--active' : ''}`}

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useAuth } from '@/features/auth/AuthContext'
 import { followUser, unfollowUser, isFollowing } from '@/services/profile.service'
 import type { PostWithAuthor } from '@/types/post'
+import Avatar from '@/components/Avatar'
 import { useEffect } from 'react'
 
 interface PostCardProps {
@@ -39,10 +40,11 @@ export default function PostCard({ post }: PostCardProps) {
     <article className="post-card">
 
       <div className="post-card-author">
-        <img
+        <Avatar
           src={author.avatar_url ?? '/default-avatar.png'}
-          alt={author.username}
           className="post-card-avatar"
+          username={author.username}
+          size={96}
         />
         <Link to={`/@${author.username}`} className="post-card-author-name">
           {author.full_name ?? author.username}

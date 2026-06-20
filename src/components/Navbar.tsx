@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import NotificationBell from './NotificationBell'
 import HomeLink from '@/components/HomeLinks'
+import Avatar from '@/components/Avatar'
 import { useHomeLink } from '@/hooks/useHomeLink'
 import '@/styles/layout.css'
 
@@ -35,9 +36,10 @@ export default function Navbar() {
                 className="navbar-avatar-btn"
                 aria-label="Your profile"
               >
-                <img
+                <Avatar
                   src={user.user_metadata.avatar_url ?? '/default-avatar.png'}
-                  alt={user.user_metadata.username ?? 'Profile'}
+                  username={user.user_metadata.username}
+                  size={96}
                   className="navbar-avatar"
                 />
               </Link>

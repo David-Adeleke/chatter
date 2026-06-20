@@ -3,6 +3,7 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { useProfile } from '@/hooks/useProfile'
 import { useHomeLink } from '@/hooks/useHomeLink'
 import SEO from '@/components/SEO'
+import Avatar from '@/components/Avatar'
 import { followUser, unfollowUser } from '@/services/profile.service'
 import '@/styles/profile.css'
 
@@ -126,10 +127,11 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <img
+            <Avatar
               src={profile.avatar_url ?? '/default-avatar.png'}
-              alt={`Avatar of ${profile.full_name ?? profile.username}`}
+              username={ profile.username }
               className="profile-avatar"
+              size={96}
             />
           </div>
         </header>
