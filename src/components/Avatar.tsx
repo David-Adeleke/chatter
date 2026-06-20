@@ -13,7 +13,7 @@ export default function Avatar({ src, username, size = 32, className }: AvatarPr
       <img
         src={src}
         alt={username}
-        className={className} style={{ width: size, height: size, broderRadius: "50%", objectFit: 'cover', display: 'block', flexShrink: 0 }} />
+        className={className} style={{ width: size, height: size, borderRadius: "50%", objectFit: 'cover', display: 'block', flexShrink: 0 }} />
     )
   }
 
