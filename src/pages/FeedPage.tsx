@@ -37,6 +37,9 @@ export default function FeedPage() {
       <div className="feed-layout">
 
         <section className="feed-main">
+          <div className="feed-mobile-search" aria-label="Search stories">
+            <SearchBar onSearch={handleSearch} placeholder="Search Chatter" />
+          </div>
           {!searchQuery ? (
             <div className="feed-tabs-bar">
               <nav className="feed-tabs" aria-label="Feed filter">

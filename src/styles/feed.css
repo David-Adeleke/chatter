@@ -551,3 +551,23 @@
 .post-card-follow-btn--following {
   opacity: 0.6;
 }
+
+/* ============================================================
+   MOBILE SEARCH
+   ============================================================ */
+
+@layer components {
+
+  /* Shown only on mobile — desktop uses the sidebar search */
+  .feed-mobile-search {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2ddd4;
+  }
+
+  /* Hide on desktop — sidebar already has search */
+  @media (min-width: 905px) {
+    .feed-mobile-search {
+      display: none;
+    }
+  }
+}
