@@ -1,73 +1,125 @@
-# React + TypeScript + Vite
+# Chatter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Chatter is a full-stack, Medium-style publishing platform built for writers who want a clean space to write, share, and connect with readers in real time.
 
-Currently, two official plugins are available:
+🔗 **Live app:** [chatter-ebon.vercel.app](https://chatter-ebon.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Overview
 
-## React Compiler
+Chatter combines a distraction-free writing experience with a social layer, so publishing content and building an audience happen in one place. It includes a rich text editor, a personalized feed, social interactions, live notifications, and analytics for tracking how your writing performs.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Preview
 
-## Expanding the ESLint configuration
+**Landing page**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![Chatter landing page](./src/assets/landing-hero.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Sign up**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+![Chatter sign up page](./src/assets/signup-screen.png)
+
+## Features
+
+- **Rich Text Editor** – Powered by Tiptap, supporting formatted writing similar to Medium's editor
+- **Feed System** – A personalized content feed for discovering and following writers
+- **Social Layer** – Follow, like, comment, and engage with other writers and their posts
+- **Real-Time Notifications** – Instant updates for likes, comments, follows, and other activity
+- **Analytics Dashboard** – Visual insights into post performance and reader engagement, built with Recharts
+- **Authentication** – Secure sign-up and login flow handled through Supabase Auth
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Build Tool | Vite |
+| Framework | React |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Routing | React Router v7 |
+| Rich Text Editor | Tiptap |
+| Backend / Database | Supabase |
+| Charts & Analytics | Recharts |
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher recommended)
+- A Supabase project (URL and anon key)
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd chatter
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies
+```bash
+npm install
 ```
+
+3. Set up environment variables
+
+Create a `.env` file in the root directory:
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+4. Run the development server
+```bash
+npm run dev
+```
+
+### Seeding the Database
+
+A seed script is included to populate the database with sample data for local development.
+
+```bash
+npm run seed
+```
+
+## Project Structure
+
+```
+chatter/
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/           # Route-level page components
+│   ├── features/         # Feature-specific logic (feed, auth, notifications, etc.)
+│   ├── lib/              # Supabase client and utility functions
+│   ├── hooks/            # Custom React hooks
+│   └── routes/           # React Router route definitions
+├── supabase/
+│   └── seed.sql          # Database seed script
+└── public/
+```
+
+## Deployment
+
+Chatter is deployed and live at **[chatter-ebon.vercel.app](https://chatter-ebon.vercel.app/)**.
+
+| Layer | Provider |
+|---|---|
+| Frontend | Vercel |
+| Database / Auth / Realtime | Supabase |
+
+Pushing to the main branch triggers a new deployment on Vercel automatically. Environment variables (Supabase URL and anon key) are configured in the Vercel project settings rather than committed to the repo.
+
+## Roadmap
+
+- Draft autosave
+- Content bookmarking and reading lists
+- Improved search and discovery
+- Mobile-responsive polish
+
+## Contributing
+
+This project is currently maintained as a solo portfolio project. Feedback and suggestions are welcome through issues.
+
+## License
+
+MIT
