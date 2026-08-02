@@ -59,7 +59,7 @@ function App() {
                 }
               />
               <Route path="/posts/:slug" element={<PostPage />} />
-              <Route path="/@:username" element={<ProfilePage />} />
+              <Route path="/:handle" element={<ProfilePage />} />
               <Route
                 path="/dashboard"
                 element={
