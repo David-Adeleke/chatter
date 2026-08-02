@@ -14,7 +14,11 @@ export function useProfile(username: string) {
 
   useEffect(() => {
     async function load() {
-      const { data } = await getProfileByUsername(username)
+      const { data, error } = await getProfileByUsername(username)
+      if (error) {
+        console.error('getProfileByUsername error:', error)
+      }
+
       if (!data) { setLoading(false); return }
 
       setProfile(data)
