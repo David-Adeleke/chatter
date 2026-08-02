@@ -8,7 +8,8 @@ import { followUser, unfollowUser } from '@/services/profile.service'
 import '@/styles/profile.css'
 
 export default function ProfilePage() {
-  const { username } = useParams<{ username: string }>()
+  const { handle } = useParams<{ handle: string }>()
+  const username = handle?.replace(/^@/, '')
   const { user } = useAuth()
   const navigate = useNavigate()
   const homeLink = useHomeLink()
